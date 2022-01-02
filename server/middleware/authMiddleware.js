@@ -7,13 +7,13 @@ module.exports = function (req, res, next) {
     try{
         const token = req.headers.authorization.split(' ')[1]
         if(!token){
-            return res.status(401).json({message: "Авторизація провалена"})
+            return res.status(401).json({message: "Авторизація провалена!"})
         }
         const decode = jwt.verify(token, process.env.SECRET_KEY)
         req.user = decode
         next()
     }catch (e) {
-        res.status(401).json({message: "Авторизація провалена"})
+        res.status(401).json({message: "Авторизація провалена!"})
     }
 
 }
