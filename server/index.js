@@ -18,7 +18,6 @@ app.use('/api', router)
 app.use(errorHandler)
 
 
-
 const start = async () => {
     try {
         await sequelize.authenticate() //вхід у БД
@@ -30,6 +29,5 @@ const start = async () => {
 }
 //TODO Add Basket Controller and Rating.
 start()
-
 
 
