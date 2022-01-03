@@ -1,4 +1,4 @@
-const {Device, DeviceInfo} = require('../models/models')
+const {Device, DeviceInfo, Rating} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
 const fileType = '.jpg'
