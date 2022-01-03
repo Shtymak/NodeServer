@@ -1,12 +1,22 @@
 const ApiError = require('../error/ApiError')
 const {Device, User, Rating} = require('../models/models')
-class RatingController{
-    update(req, res, next){
-        //Todo: write a logic
+const {where} = require("sequelize");
+
+class RatingController {
+    async create(req, res, next) {
+        const {deviceId, rate} = req.body
+        const userId = req.user.id
+        const candidate = await Rating.findOne({where: {userId, deviceId}})
+        if (candidate)
+            return next(ApiError.Forbidden("Цей продукт вже оцінено!"))
+        const rating = await Rating.create({deviceId: deviceId, userId: userId, rate: rate})
+        res.json({rating})
     }
 
-    getOne(req, res, next){
-        //Todo: write a logic
+    async getOne(req, res, next) {
+        const {deviceId} = req.body
+        const ratingData = await Rating.findAndCountAll({where: {deviceId: deviceId}})
+        res.json({count: ratingData.count, rates: ratingData.rows})
     }
 }
 
