@@ -1,29 +1,31 @@
-const {Basket, User, BasketDevice, Device} = require("../models/models");
+const {Basket, BasketDevice} = require("../models/models");
 const ApiError = require('../error/ApiError')
-const {where} = require("sequelize");
+
 
 class BasketController {
 
     async getOne(req, res) {
-        //const token = generateJwt(req.user.id, req.user.email, req.user.role)
         const basket = await Basket.findOne({where: {userId: req.user.id}})
-        return res.json({basket})
+        const devices = await BasketDevice.findAll({where: {basketId: basket.id}})
+        return res.json({devices})
     }
 
-    async addToBasket(req, res, next){
-        // const {deviceId, basketId} = req.body
-        // let device = await BasketDevice.create({deviceId: deviceId, basketId: basketId})
-        // if(!device)
-        //     return next(ApiError.BadRequest("Помилка. Такого товару немає!"))
-        // res.json({device})
-        //TODO: Need refactor of logic
+    async addToBasket(req, res, next) {
+        const {deviceId, basketId} = req.body
+        let device = await BasketDevice.create({deviceId: deviceId, basketId: basketId})
+        if (!device)
+            return next(ApiError.BadRequest("Помилка. Неможливо додати!"))
+        res.json({device})
     }
 
-    async deleteFromBasket(){
-        //TODO: Need logic
+    async deleteFromBasket(req, res, next) {
+        const {deviceId, basketId} = req.body
+        let device = await BasketDevice.destroy({where: {deviceId: deviceId, basketId: basketId}})
+        if (!device)
+            return next(ApiError.BadRequest("Помилка. Неможливо видалити!"))
+        res.json({message: "Продукт успішно видлалено!"})
     }
 
 }
 
 module.exports = new BasketController()
-//TODO Перевірити працездатність
