@@ -1,23 +1,28 @@
 import React, {useContext} from 'react';
 import {Context} from "../index";
-import {Container, Nav, Navbar} from "react-bootstrap";
+import {Button, Container, Nav, Navbar, NavLink} from "react-bootstrap";
+import {SHOP_ROUTE} from "../utils/consts";
+import classes from "../modules/NavBar.module.css"
+import {observer} from "mobx-react-lite";
 
-const NavBar = () => {
+const NavBar = observer(() => {
     const {user} = useContext(Context)
     return (
-        <div>
-            <Navbar bg="dark" variant="dark">
-                <Container>
-                    <Navbar.Brand href="#home">Navbar</Navbar.Brand>
-                    <Nav className="me-auto">
-                        <Nav.Link href="#home">Home</Nav.Link>
-                        <Nav.Link href="#features">Features</Nav.Link>
-                        <Nav.Link href="#pricing">Pricing</Nav.Link>
+        <Navbar bg="dark" variant="dark">
+            <Container>
+                <NavLink className={classes.main_link} to={SHOP_ROUTE}>Dodo</NavLink>
+                {user.isAuth ?
+                    <Nav className={classes.nav_components}>
+                        <Button variant={"outline-primary"}>Вийти</Button>
                     </Nav>
-                </Container>
-            </Navbar>
-        </div>
+                    :
+                    <Nav className={classes.nav_components}>
+                        <Button variant={"outline-primary"}>Ввійти</Button>
+                    </Nav>
+                }
+            </Container>
+        </Navbar>
     );
-};
+});
 
 export default NavBar;
