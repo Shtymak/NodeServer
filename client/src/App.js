@@ -1,11 +1,12 @@
-import {hello} from "../../server/hello.js";
+import {BrowserRouter} from "react-router-dom";
+import AppRouter from "./components/AppRouter";
 
 function App() {
-  return (
-    <div>
-        {hello()}
-    </div>
-  );
+    return (
+        <BrowserRouter>
+            <AppRouter/>
+        </BrowserRouter>
+    );
 }
 
 export default App;
