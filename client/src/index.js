@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
+import React, {createContext} from 'react';
 import ReactDOM from 'react-dom';
 import App from "../src/App"
 import UserStore from "./store/UserStore";
 import DeviceStore from "./store/DeviceStore";
 
-export const Context = useContext(null)
+export const Context = createContext(null)
 
 
 ReactDOM.render(
