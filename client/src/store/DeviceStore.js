@@ -13,6 +13,7 @@ export default class DeviceStore {
         this._devices = [
             {id: 1, name: "12 pro", price: 12000, rating: 5, img: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MHLN3?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1601352338000"}
         ]
+        this._selectedType = {}
         makeAutoObservable(this)
     }
 
@@ -38,5 +39,13 @@ export default class DeviceStore {
 
     setDevices(value) {
         this._devices = value;
+    }
+
+    get selectedType() {
+        return this._selectedType;
+    }
+
+    setSelectedType(value) {
+        this._selectedType = value;
     }
 }
