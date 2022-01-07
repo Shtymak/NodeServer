@@ -1,0 +1,14 @@
+._card{
+    max-width: 150px;
+    cursor: pointer;
+    border: lightcyan;
+}
+
+._image{
+    max-width: 150px;
+    max-height: 150px;
+}
+.icon{
+    max-height: 15px;
+    max-width: 15px;
+}

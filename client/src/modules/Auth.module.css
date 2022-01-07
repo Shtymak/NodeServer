@@ -1,0 +1,11 @@
+._container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+}
+
+._card{
+    width: 600px;
+    padding: 5px 5px 5px 5px;
+}
