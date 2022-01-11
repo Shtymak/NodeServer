@@ -1,21 +1,34 @@
-import React, {useState} from 'react';
+import React, {useContext, useState} from 'react';
 import {Button, Card, Container, Form, Row} from "react-bootstrap";
 import {NavLink, useLocation} from "react-router-dom";
 import {LOGIN_ROUTE, REGISTRATION_ROUTE} from "../utils/consts";
 import {login, registration} from "../http/userAPI";
+import {observer} from "mobx-react-lite";
+import {Context} from "../index";
 
-const Auth = () => {
+
+const Auth = observer(() => {
+    const {user} = useContext(Context)
     const isLogin = useLocation().pathname === LOGIN_ROUTE
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
 
     const enter = async () => {
-        if (isLogin === false) {
-            const response = await registration(email, password)
-            console.log(response)
+        try {
+            let userData
+            if (isLogin === false) {
+                userData = await registration(email, password)
+                console.log(userData)
+            } else {
+                userData = await login(email, password)
+                console.log(userData)
+            }
+            user.setUser(user)
+            user.setIsAuth(true)
         }
-        else {
-            const response = await login(email, password)
+        catch (error){
+            const message = error.response.data.message
+            alert(message)
         }
     }
     return (
@@ -35,7 +48,7 @@ const Auth = () => {
                         className="mt-2"
                         placeholder="Пароль"
                         value={password}
-                        onChange={e =>setPassword(e.target.value)}
+                        onChange={e => setPassword(e.target.value)}
                         type="password"
                     />
                     <Row className="d-flex justify-content-between mt-2 pr-3 pl-3">
@@ -53,6 +66,6 @@ const Auth = () => {
             </Card>
         </Container>
     );
-};
+});
 
 export default Auth;
