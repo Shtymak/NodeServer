@@ -5,15 +5,17 @@ import BrandBar from "../components/BrandBar";
 import DeviceList from "../components/DeviceList";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {fetchBrand, fetchType} from "../http/deviceApi";
+import {fetchBrand, fetchDevice, fetchType} from "../http/deviceApi";
 
 const Shop = observer(() => {
     const {device} = useContext(Context)
     const loadTypes = () => fetchType().then(data => device.setTypes(data)) //promise
     const loadBrands = async () => device.setBrands(await fetchBrand())     //async
+    const loadDevices = () => fetchDevice().then(data=>device.setDevices(data.rows))
     useEffect(() => {
         loadBrands()
         loadTypes()
+        loadDevices()
     }, [])
     return (
         <Container>

@@ -4,46 +4,7 @@ export default class DeviceStore {
     constructor() {
         this._types = []
         this._brands = []
-        this._devices = [
-            {
-                id: 1,
-                name: "12 pro",
-                price: 12000,
-                rating: 5,
-                img: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MHLN3?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1601352338000"
-            },
-            {
-                id: 1,
-                name: "12 pro",
-                price: 12000,
-                rating: 5,
-                img: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MHLN3?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1601352338000"
-            }
-            , {
-                id: 1,
-                name: "12 pro",
-                price: 12000,
-                rating: 5,
-                img: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MHLN3?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1601352338000"
-            }
-            ,
-            {
-                id: 1,
-                name: "12 pro",
-                price: 12000,
-                rating: 5,
-                img: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MHLN3?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1601352338000"
-            },
-            {
-                id: 1,
-                name: "12 pro",
-                price: 12000,
-                rating: 5,
-                img: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/MHLN3?wid=2000&hei=2000&fmt=jpeg&qlt=95&.v=1601352338000"
-            }
-
-
-        ]
+        this._devices = []
         this._selectedType = {}
         this._selectedBrand = {}
         makeAutoObservable(this)
