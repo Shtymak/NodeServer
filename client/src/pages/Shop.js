@@ -9,10 +9,8 @@ import {fetchType} from "../http/deviceApi";
 
 const Shop = observer(() => {
     const {device} = useContext(Context)
-    const loadTypes = () => {
-        fetchType().then(data => device.setTypes(data))
-    }
-    useEffect(() => fetchType().then(data => device.setTypes(data)), [])
+    const loadTypes = () => fetchType().then(data => device.setTypes(data))
+    useEffect(loadTypes, [])
     return (
         <Container>
             <Row className='mt-2'>
