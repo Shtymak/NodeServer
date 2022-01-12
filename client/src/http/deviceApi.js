@@ -7,5 +7,13 @@ export const fetchType = async () =>{
     const {data} = await $host.get('api/type')
     return data
 }
+export const createBrand = async (brand) =>
+    await $authHost.post('api/brand', brand) //TODO: think about permission auth or !auth
+
+export const fetchBrand = async () =>{
+    const {data} = await $host.get('api/brand')
+    return data
+}
+
 
 
