@@ -11,7 +11,7 @@ const DeviceItem = ({device}) => {
         <Col md={3} className="mt-3" onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>
             <Card className={classes._card}>
                 <Image
-                    src={device.img}
+                    src={process.env.REACT_APP_API_URL + device.img}
                     className={classes._image}
                 />
                 <div className="mt-1 d-flex justify-content-between align-items-center">
