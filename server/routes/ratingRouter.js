@@ -4,7 +4,7 @@ const authMiddleware = require('../middleware/authMiddleware')
 
 const ratingController = require('../controllers/ratingController')
 
-router.get('/', authMiddleware, ratingController.getOne)
-router.put('/', authMiddleware, ratingController.create)
+router.get('/:id', ratingController.getOne)
+router.post('/', authMiddleware, ratingController.create)
 
 module.exports = router
