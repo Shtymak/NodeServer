@@ -1,16 +1,26 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Container, FormSelect, Image, Row} from "react-bootstrap";
 import star from "../assets/star.png"
-import {fetchOneDevice, fetchRating} from "../http/deviceApi";
+import {createRating, fetchOneDevice, fetchRating} from "../http/deviceApi";
 import {useParams} from "react-router-dom";
+import {login} from "../http/userAPI";
+import {observer} from "mobx-react-lite";
 
-const DevicePage = () => {
+const DevicePage = observer(() => {
     const [device, setDevice] = useState({info: []})
     const [rating, setRating] = useState(0)
     const ratings = [1, 2, 3, 4, 5]
     const {id} = useParams()
     const loadDevice = async () => (setDevice(await fetchOneDevice(id)))
     const loadRating = () => fetchRating(id).then(data => setRating(data.rows / data.count))
+    const addRating = async () => {
+        try {
+            await createRating({deviceId: id, rate: rating})
+            await loadRating()
+        } catch (e) {
+            alert(e.response.data.message)
+        }
+    }
     useEffect(() => {
         loadDevice()
         loadRating()
@@ -60,7 +70,6 @@ const DevicePage = () => {
                 <h1>Оцінка: </h1>
                 <FormSelect onChange={e => {
                     setRating(e.target.value)
-                    console.log(e.target.value)
                 }}>
                     {ratings.map(rating =>
                         <option value={rating}
@@ -69,9 +78,10 @@ const DevicePage = () => {
                         </option>)
                     }
                 </FormSelect>
+                <Button onClick={() => addRating()}>Оцінити!</Button>
             </Row>
         </Container>
     );
-};
+});
 
 export default DevicePage;
