@@ -21,9 +21,9 @@ const DevicePage = observer(() => {
             alert(e.response.data.message)
         }
     }
-    useEffect(() => {
-        loadDevice()
-        loadRating()
+    useEffect(async () => {
+        await loadDevice()
+        await loadRating()
     }, [])
     return (
         <Container className="mt-3">
