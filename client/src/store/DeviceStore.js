@@ -5,7 +5,6 @@ export default class DeviceStore {
         this._types = []
         this._brands = []
         this._devices = []
-        this._ratings = []
         this._selectedType = {}
         this._selectedBrand = {}
         makeAutoObservable(this)
@@ -14,15 +13,6 @@ export default class DeviceStore {
 
     get selectedBrand() {
         return this._selectedBrand;
-    }
-
-
-    get rating() {
-        return this._ratings;
-    }
-
-    setRating(value) {
-        this._ratings = value;
     }
 
     setSelectedBrand(value) {
