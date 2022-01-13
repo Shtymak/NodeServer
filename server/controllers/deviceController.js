@@ -56,6 +56,11 @@ class DeviceController {
             where: {id},
             include: [{model: DeviceInfo, as: 'info'}]
     })
+        const {rows}= await Rating.findAndCountAll({where:{deviceId: id}})
+        const rating = rows.reduce((total, row) =>{
+            return total + row.rate
+        }, 0)
+        await device.update({rating: rating})
         return res.json(device)
     }
 }

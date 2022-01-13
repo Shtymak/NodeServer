@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Button, Card, Col, Container, FormSelect, Image, Row} from "react-bootstrap";
 import star from "../assets/star.png"
-import {fetchOneDevice} from "../http/deviceApi";
+import {fetchOneDevice, fetchRating} from "../http/deviceApi";
 import {useParams} from "react-router-dom";
 
 const DevicePage = () => {
@@ -10,7 +10,11 @@ const DevicePage = () => {
     const ratings = [1, 2, 3, 4, 5]
     const {id} = useParams()
     const loadDevice = async () => (setDevice(await fetchOneDevice(id)))
-    useEffect(loadDevice, [])
+    const loadRating = () => fetchRating(id).then(data => setRating(data.rows / data.count))
+    useEffect(() => {
+        loadDevice()
+        loadRating()
+    }, [])
     return (
         <Container className="mt-3">
             <Row>
@@ -54,8 +58,10 @@ const DevicePage = () => {
             </Row>
             <Row className="d-flex flex-column m-3">
                 <h1>Оцінка: </h1>
-                <FormSelect onChange={e => {setRating(e.target.value)
-                    console.log(e.target.value)}}>
+                <FormSelect onChange={e => {
+                    setRating(e.target.value)
+                    console.log(e.target.value)
+                }}>
                     {ratings.map(rating =>
                         <option value={rating}
                                 key={rating}>
