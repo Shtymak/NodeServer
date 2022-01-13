@@ -14,8 +14,8 @@ class RatingController {
     }
 
     async getOne(req, res, next) {
-        const {deviceId} = req.body
-        const ratingData = await Rating.findAndCountAll({where: {deviceId: deviceId}})
+        const {id} = req.params
+        const ratingData = await Rating.findAndCountAll({where: {deviceId: id}})
         res.json({count: ratingData.count, rates: ratingData.rows})
     }
 }

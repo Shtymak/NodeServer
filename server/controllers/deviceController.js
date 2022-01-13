@@ -3,6 +3,7 @@ const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
 const fileType = '.jpg'
 const path = require('path')
+const {log} = require("nodemon/lib/utils");
 
 class DeviceController {
     async create(req, res, next) {
@@ -55,7 +56,13 @@ class DeviceController {
         const device = await Device.findOne({
             where: {id},
             include: [{model: DeviceInfo, as: 'info'}]
-    })
+        })
+        const {count, rows} = await Rating.findAndCountAll({where: {deviceId: id}})
+        const rating = Math.ceil(rows.reduce((total, row) => {
+            return total + row.rate
+        }, 0) / count)
+        if (rating !== device.rating)
+            await device.update({rating: rating})
         return res.json(device)
     }
 }
