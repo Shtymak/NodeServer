@@ -37,3 +37,5 @@ export const fetchRating = async (id) => {
     const {data} = await  $host.get(`api/rating/${id}`)
     return {data}
 }
+
+//TODO: fetch basket
