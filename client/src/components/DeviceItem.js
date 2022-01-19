@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Col, Image} from "react-bootstrap";
+import {Button, Card, Col, Image} from "react-bootstrap";
 import classes from "../modules/DeviceItem.module.css"
 import star from "../assets/star.png"
 import {useHistory} from "react-router-dom";
@@ -8,8 +8,8 @@ import {DEVICE_ROUTE} from "../utils/consts";
 const DeviceItem = ({device}) => {
     const history = useHistory()
     return (
-        <Col md={3} className="mt-3" onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>
-            <Card className={classes._card}>
+        <Col md={3} className="mt-3">
+            <Card className={classes._card} onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>
                 <Image
                     src={process.env.REACT_APP_API_URL + device.img}
                     className={classes._image}
@@ -23,6 +23,11 @@ const DeviceItem = ({device}) => {
                 </div>
                 <div>{device.name}</div>
             </Card>
+            <div>
+                <span className={classes._add_product}>
+                     +
+                </span>
+            </div>
         </Col>
     );
 };

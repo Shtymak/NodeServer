@@ -12,3 +12,10 @@
     max-height: 15px;
     max-width: 15px;
 }
+._add_product{
+    max-width: 50px;
+    max-height: 25px;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
