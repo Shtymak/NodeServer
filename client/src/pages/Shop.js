@@ -11,12 +11,12 @@ const Shop = observer(() => {
     const {device} = useContext(Context)
     const loadTypes = () => fetchType().then(data => device.setTypes(data)) //promise
     const loadBrands = async () => device.setBrands(await fetchBrand())     //async
-    const loadDevices = () => fetchDevice().then(data=>device.setDevices(data.rows))
+    const loadDevices = () => fetchDevice(device.selectedType.id, device.selectedBrand.id).then(data=>device.setDevices(data.rows))
     useEffect(() => {
         loadBrands()
         loadTypes()
         loadDevices()
-    }, [])
+    }, [device.selectedBrand, device.selectedType])
     return (
         <Container>
             <Row className='mt-2'>

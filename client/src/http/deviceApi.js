@@ -18,8 +18,8 @@ export const fetchBrand = async () => {
 export const createDevice = async (device) =>
     await $authHost.post('api/device', device) //TODO: think about permission auth or !auth
 
-export const fetchDevice = async () => {
-    const {data} = await $host.get('api/device')
+export const fetchDevice = async (brandId, typeId) => {
+    const {data} = await $host.get('api/device', {params: {brandId, typeId}})
     return data
 }
 
@@ -34,7 +34,7 @@ export const createRating = async (rating) => {
 }
 
 export const fetchRating = async (id) => {
-    const {data} = await  $host.get(`api/rating/${id}`)
+    const {data} = await $host.get(`api/rating/${id}`)
     return {data}
 }
 
