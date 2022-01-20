@@ -4,9 +4,10 @@ const ApiError = require('../error/ApiError')
 
 class BasketController {
 
-    async getOne(req, res) {
-        const basket = await Basket.findOne({where: {userId: req.user.id}})
-        const devices = await BasketDevice.findAll({where: {basketId: basket.id}})
+    async getAndCountAll(req, res) {
+        const {basketId} = req.body
+        const basket = await Basket.findOne({where: {id: basketId}})
+        const devices = await BasketDevice.findAndCountAll({where: {basketId: basket.id}})
         return res.json({devices})
     }
 
