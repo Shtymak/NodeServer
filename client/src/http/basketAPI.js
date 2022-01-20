@@ -1,11 +1,12 @@
-import {$authHost, $host} from "./index";
+import {$authHost} from "./index";
 
-export const addToBasket = async (id) => {
-
+export const addToBasket = async (deviceId) => {
+    await $authHost.post('api/basket', {deviceId})
 }
 
-export const fetchBasket = async () =>{
-
+export const fetchBasket = async () => {
+    const {data} = await $authHost.get('api/basket')
+    return data
 }
 
 
