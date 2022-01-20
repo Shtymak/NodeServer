@@ -7,6 +7,8 @@ class BasketController {
 
     async getAndCountAll(req, res, next) {
         const basket = await Basket.findOne({where: {userId: req.user.id}});
+        if (!basket)
+            return next(ApiError.BadRequest("Кошик не знайдено"))
         const basketDevices = await BasketDevice.findAndCountAll({where: {basketId: basket.id}})
         const ids = basketDevices.rows.map(device => device.deviceId)
         const {count} = basketDevices
@@ -15,7 +17,7 @@ class BasketController {
                 id: ids
             }
         })
-        if(!devices)
+        if (!devices)
             return next(ApiError.BadRequest("Кошик порожній"))
         return res.json({count, devices})
     }
