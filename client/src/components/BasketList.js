@@ -5,6 +5,7 @@ import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 
 const BasketList = observer(() => {
+    const basket = []
     return (
         <Row>
             {basket.map(device =>

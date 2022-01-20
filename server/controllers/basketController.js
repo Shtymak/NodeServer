@@ -1,13 +1,23 @@
-const {Basket, BasketDevice} = require("../models/models");
+const {Basket, BasketDevice, Device} = require("../models/models");
 const ApiError = require('../error/ApiError')
+const {log} = require("nodemon/lib/utils");
 
 
 class BasketController {
 
-    async getAndCountAll(req, res) {
+    async getAndCountAll(req, res, next) {
         const basket = await Basket.findOne({where: {userId: req.user.id}});
-        const devices = await BasketDevice.findAndCountAll({where: {basketId: basket.id}})
-        return res.json({devices})
+        const basketDevices = await BasketDevice.findAndCountAll({where: {basketId: basket.id}})
+        const ids = basketDevices.rows.map(device => device.deviceId)
+        const {count} = basketDevices
+        const devices = await Device.findAll({
+            where: {
+                id: ids
+            }
+        })
+        if(!devices)
+            return next(ApiError.BadRequest("Кошик порожній"))
+        return res.json({count, devices})
     }
 
     async addToBasket(req, res, next) {
@@ -30,4 +40,5 @@ class BasketController {
 
 }
 
-module.exports = new BasketController()
+module
+    .exports = new BasketController()
