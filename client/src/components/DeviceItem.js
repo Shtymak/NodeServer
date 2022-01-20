@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, Card, Col, Image} from "react-bootstrap";
 import classes from "../modules/DeviceItem.module.css"
 import star from "../assets/star.png"
 import {useHistory} from "react-router-dom";
 import {DEVICE_ROUTE} from "../utils/consts";
+import {addToBasket} from "../http/basketAPI";
+import {Context} from "../index";
 
 const DeviceItem = ({device}) => {
     const history = useHistory()
+    const addItem = () => {
+        addToBasket(device.id).then(data => alert('Успішно додано!'))
+    }
     return (
         <Col md={3} className="mt-3">
             <Card className={classes._card} onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>
@@ -24,7 +29,8 @@ const DeviceItem = ({device}) => {
                 <div>{device.name}</div>
             </Card>
             <div>
-                <span className={classes._add_product}>
+                <span className={classes._add_product}
+                      onClick={addItem}>
                      +
                 </span>
             </div>
