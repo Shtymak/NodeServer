@@ -5,7 +5,7 @@ import star from "../assets/star.png"
 import {useHistory} from "react-router-dom";
 import {DEVICE_ROUTE} from "../utils/consts";
 import {addToBasket} from "../http/basketAPI";
-import {Context} from "../index";
+//Todo: need to block added to basket without login
 
 const DeviceItem = ({device}) => {
     const history = useHistory()
