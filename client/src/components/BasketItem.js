@@ -2,10 +2,13 @@ import React from 'react';
 import classes from "../modules/BasketItem.module.css";
 import {Card, Col, FormControl, Image, Row} from "react-bootstrap";
 import {deleteFromBasket} from "../http/basketAPI";
-const BasketItem = ({device}) => {
+import {observer} from "mobx-react-lite";
 
-    const deleteDevice = async () =>{
-        deleteFromBasket({deviceId: device.id}).then(data=>alert("Видалено!"))
+const BasketItem = observer(({device, deleteFromBasketList}) => {
+
+    const deleteDevice = async () => {
+        await deleteFromBasket({deviceId: device.id})
+        deleteFromBasketList(device.id)
     }
     return (
         <Col className={classes.col}>
@@ -26,6 +29,6 @@ const BasketItem = ({device}) => {
             </Card>
         </Col>
     );
-};
+});
 
 export default BasketItem;
