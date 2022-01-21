@@ -5,10 +5,10 @@ import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 
 const BasketList = observer(() => {
-    const basket = []
+    const {basket} = useContext(Context)
     return (
         <Row>
-            {basket.map(device =>
+            {basket.basketDevices.map(device =>
                 <BasketItem device={device} key={device.id}/>
             )}
         </Row>
