@@ -26,7 +26,7 @@ export const createDevice = async (device) =>
     await $authHost.post(routes.device, device) //TODO: think about permission auth or !auth
 
 export const fetchDevice = async (brandId, typeId) => {
-    const {data} = await $host.get(routes.device, {params: {brandId, typeId}})
+    const {data} = await $host.get(routes.device, {params: {brandId: brandId, typeId: typeId}})
     return data
 }
 
