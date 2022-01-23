@@ -6,8 +6,7 @@ import {useHistory} from "react-router-dom";
 import {DEVICE_ROUTE} from "../utils/consts";
 import {addToBasket} from "../http/basketAPI";
 import {Context} from "../index";
-import {login} from "../http/userAPI";
-//Todo: need to block added to basket without login
+import addIcon from "../assets/addToCart.png"
 
 const DeviceItem = ({device}) => {
     const history = useHistory()
@@ -37,13 +36,14 @@ const DeviceItem = ({device}) => {
                 <div>{device.name}</div>
             </Card>
             <div>
-                <span className={classes._add_product}
-                      onClick={addItem}>
-                     +
-                </span>
+                <Image className={classes._add_product}
+                       onClick={addItem}
+                       src={addIcon}>
+                </Image>
             </div>
         </Col>
     );
 };
 
 export default DeviceItem;
+//Todo: animation of add

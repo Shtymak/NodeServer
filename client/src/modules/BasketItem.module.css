@@ -1,9 +1,24 @@
 .col {
-    max-width: 80vw;
-    max-height: 100px;
+    /*height: 21vh;*/
+    /*width: 55vw;*/
+    margin: 5px auto auto;
 }
 
-._image{
-    max-width: 50px;
-    max-height: 50px;
+.card {
+    display: flex;
+    height: 21vh;
+    width: 55vw;
+    padding: 5px 5px 5px 5px;
+}
+
+._image {
+    margin-left: auto;
+    width: 50px;
+    height: 50px;
+}
+
+.icon {
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
 }
