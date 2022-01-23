@@ -5,10 +5,13 @@ import star from "../assets/star.png"
 import {useHistory} from "react-router-dom";
 import {DEVICE_ROUTE} from "../utils/consts";
 import {addToBasket} from "../http/basketAPI";
+import {Context} from "../index";
+import {login} from "../http/userAPI";
 //Todo: need to block added to basket without login
 
 const DeviceItem = ({device}) => {
     const history = useHistory()
+    const brands = useContext(Context).device.brands
     const addItem = () => {
         addToBasket(device.id).then(data => alert('Успішно додано!'))
     }
@@ -20,7 +23,12 @@ const DeviceItem = ({device}) => {
                     className={classes._image}
                 />
                 <div className="mt-1 d-flex justify-content-between align-items-center">
-                    <div className="text-black-50 ">Apple</div>
+                    <div className="text-black-50 ">
+                        {brands.filter(x =>
+                            x.id === device.brandId).map(x =>
+                            <div>{x.name}</div>)
+                        }
+                    </div>
                     <div className='d-flex align-items-center'>
                         <div>{device.rating}</div>
                         <Image src={star} className={classes.icon}/>
