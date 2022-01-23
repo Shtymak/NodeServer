@@ -8,6 +8,7 @@ const fileUpload = require('express-fileupload')
 const router = require('./routes/index')
 const errorHandler = require('./middleware/ErrorHandlingMiddleware')
 const path = require('path')
+const {log} = require("nodemon/lib/utils");
 
 const app = express()
 app.use(cors())
@@ -27,7 +28,4 @@ const start = async () => {
         console.log(e.message)
     }
 }
-//TODO Add Basket Controller and Rating.
-start()
-
-
+start().then(r=>console.log(r))
