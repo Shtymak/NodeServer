@@ -42,5 +42,4 @@ class BasketController {
 
 }
 
-module
-    .exports = new BasketController()
+module.exports = new BasketController()
