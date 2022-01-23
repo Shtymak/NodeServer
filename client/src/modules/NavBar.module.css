@@ -6,3 +6,10 @@
     margin-left: auto;
     color: white;
 }
+
+.basket{
+    cursor: pointer;
+    max-width: 24px;
+    max-height: 24px;
+    margin-left: 2px;
+}
