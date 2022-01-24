@@ -10,7 +10,6 @@ class DeviceController {
         try {
             let {name, price, brandId, typeId, info} = req.body
             const {id} = req.user
-            console.log("Id:",id)
             const {img} = req.files
             let fileName = uuid.v4() + fileType
             img.mv(path.resolve(__dirname, '..', 'static', fileName))

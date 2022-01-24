@@ -1,6 +1,6 @@
 const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
-const {User, Basket} = require('../models/models')
+const {User, Basket, Device} = require('../models/models')
 const jwt = require('jsonwebtoken')
 
 const generateJwt = (id, email, role) => {
@@ -43,6 +43,11 @@ class UserController {
     async check(req, res, next) {
         const token = generateJwt(req.user.id, req.user.email, req.user.role)
         return res.json({token})
+    }
+    async getDevices(req, res, next){
+        const {id} = req.user
+        const devices = await Device.findAndCountAll({where: {userId: id}})
+        return res.json(devices)
     }
 }
 
