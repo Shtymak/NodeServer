@@ -1,8 +1,9 @@
+const authMiddleware = require('../middleware/authMiddleware')
 const Router = require("express")
 const router = new Router()
 const deviseController = require('../controllers/deviceController')
 
-router.post("/", deviseController.create)
+router.post("/", authMiddleware, deviseController.create)
 router.get("/", deviseController.getAll)
 router.get("/:id", deviseController.getOne)
 

@@ -21,7 +21,8 @@ const Device = sequelize.define('device', {
     name: {type: DataTypes.STRING, unique: true, allowNull: false},
     price: {type: DataTypes.INTEGER, allowNull: false},
     rating: {type: DataTypes.INTEGER, defaultValue: 0, allowNull: false},
-    img: {type: DataTypes.STRING, allowNull: false}
+    img: {type: DataTypes.STRING, allowNull: false},
+    userId: {type: DataTypes.INTEGER, allowNull: false}
 })
 
 const Type = sequelize.define('type', {
@@ -73,6 +74,9 @@ DeviceInfo.belongsTo(Device)
 
 Type.belongsToMany(Brand, {through: TypeBrand})
 Brand.belongsToMany(Type, {through: TypeBrand})
+
+User.hasMany(Device)
+Device.belongsTo(User)
 
 module.exports = {
     User,
