@@ -20,7 +20,7 @@ export default class DeviceStore {
     }
 
     get types() {
-        return this._types;
+        return this._types.slice().sort((a, b) => a.name >= b.name ? 1 : -1)
     }
 
     setTypes(value) {
@@ -28,7 +28,7 @@ export default class DeviceStore {
     }
 
     get brands() {
-        return this._brands;
+        return this._brands.slice().sort((a, b) => a.name >= b.name ? 1 : -1);
     }
 
     setBrands(value) {
@@ -36,7 +36,7 @@ export default class DeviceStore {
     }
 
     get devices() {
-        return this._devices;
+        return this._devices.slice().sort((a, b) => a.typeId >= b.typeId ? 1 : -1);
     }
 
     setDevices(value) {
