@@ -4,6 +4,8 @@ import {Card, Col, FormControl, Image, Row} from "react-bootstrap";
 import {deleteFromBasket} from "../http/basketAPI";
 import {observer} from "mobx-react-lite";
 import trashIcon from "../assets/trash.png"
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total}) => {
 
@@ -11,6 +13,15 @@ const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total
         await deleteFromBasket({deviceId: device.id})
         deleteFromBasketList(device.id)
         setTotalPrice(total - device.price * count)
+        toast.error(`${device.name} видалено`, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+        });
     }
     let [count, setCount] = useState(1)
     return (
@@ -43,6 +54,17 @@ const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total
                     <Image className={classes.icon} onClick={deleteDevice} src={trashIcon}/>
                 </div>
             </Card>
+            <ToastContainer
+                position="top-right"
+                autoClose={3000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover={false}
+            />
         </Col>
     );
 });

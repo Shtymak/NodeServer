@@ -6,6 +6,13 @@ import {ListGroup} from "react-bootstrap";
 
 const TypeBar = observer(() => {
     const {device} = useContext(Context)
+
+    const selectType = (type) => {
+        if (device.selectedType.id === type.id)
+            device.setSelectedType(0)
+        else
+            device.setSelectedType(type)
+    }
     return (
         <ListGroup as="ul">
             {
@@ -13,7 +20,7 @@ const TypeBar = observer(() => {
                     <ListGroup.Item
                         className={classes._item}
                         active={device.selectedType.id === type.id}
-                        onClick={() => device.setSelectedType(type)}
+                        onClick={() => selectType(type)}
                         key={`#${type.id}`}
                     >
                         {type.name}
