@@ -12,17 +12,19 @@ const DevicePage = observer(() => {
     const ratings = [1, 2, 3, 4, 5]
     const {id} = useParams()
     const loadDevice = async () => (setDevice(await fetchOneDevice(id)))
-    const loadRating = () => fetchRating(id).then(data => {setRating(data.rows/data.count)})
+    const loadRating = () => fetchRating(id).then(data => {
+        setRating(data.rows / data.count)
+    })
     const addRating = async () => {
         try {
-            await createRating({deviceId: id, rate: rating})
+            await createRating({deviceId: id, rate: rating}).then(() => loadDevice())
         } catch (e) {
             alert(e.response.data.message)
         }
     }
-    useEffect( () => {
-         loadDevice()
-         loadRating()
+    useEffect(() => {
+        loadDevice()
+        loadRating()
     }, [])
     return (
         <Container className="mt-3">
