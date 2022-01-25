@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState} from 'react';
 import classes from "../modules/BasketItem.module.css";
 import {Card, Col, FormControl, Image, Row} from "react-bootstrap";
 import {deleteFromBasket} from "../http/basketAPI";

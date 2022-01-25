@@ -1,7 +1,6 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {Container, Row} from "react-bootstrap";
+import React from 'react';
+import {Row} from "react-bootstrap";
 import BasketItem from "./BasketItem";
-import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 
 const BasketList = observer(({basket, totalPrice, setTotalPrice}) => {

@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Card, ListGroup, Row} from "react-bootstrap";
+import {Card, Row} from "react-bootstrap";
 import {Context} from "../index";
 import {observer} from "mobx-react-lite";
 import classes from "../modules/BrandBar.module.css";

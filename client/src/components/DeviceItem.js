@@ -1,5 +1,5 @@
 import React, {useContext} from 'react';
-import {Button, Card, Col, Image} from "react-bootstrap";
+import {Card, Col, Image} from "react-bootstrap";
 import classes from "../modules/DeviceItem.module.css"
 import star from "../assets/star.png"
 import {useHistory} from "react-router-dom";
@@ -7,12 +7,14 @@ import {DEVICE_ROUTE} from "../utils/consts";
 import {addToBasket} from "../http/basketAPI";
 import {Context} from "../index";
 import addIcon from "../assets/addToCart.png"
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const DeviceItem = ({device}) => {
     const history = useHistory()
     const brands = useContext(Context).device.brands
     const addItem = () => {
-        addToBasket(device.id).then(data => alert('Успішно додано!'))
+        addToBasket(device.id).then(() => toast.success("Успішно додано", {}))
     }
     return (
         <Col md={3} className="mt-3">
@@ -25,7 +27,7 @@ const DeviceItem = ({device}) => {
                     <div className="text-black-50 ">
                         {brands.filter(x =>
                             x.id === device.brandId).map(x =>
-                            <div>{x.name}</div>)
+                            <div key={x.id}>{x.name}</div>)
                         }
                     </div>
                     <div className='d-flex align-items-center'>
@@ -41,6 +43,7 @@ const DeviceItem = ({device}) => {
                        src={addIcon}>
                 </Image>
             </div>
+            <ToastContainer/>
         </Col>
     );
 };
