@@ -25,7 +25,7 @@ class BasketController {
     async addToBasket(req, res, next) {
         const {id} = await Basket.findOne({where: {userId: req.user.id}});
         const {deviceId} = req.body
-        let device = await BasketDevice.create({deviceId: deviceId, basketId: id})
+        const device = await BasketDevice.create({deviceId: deviceId, basketId: id})
         if (!device)
             return next(ApiError.BadRequest("Помилка. Неможливо додати!"))
         res.json({device})
@@ -34,12 +34,11 @@ class BasketController {
     async deleteFromBasket(req, res, next) {
         const {deviceId} = req.body
         const {id} = await Basket.findOne({where: {userId: req.user.id}});
-        let device = await BasketDevice.destroy({where: {deviceId: deviceId, basketId: id}})
+        const device = await BasketDevice.destroy({where: {deviceId: deviceId, basketId: id}})
         if (!device)
             return next(ApiError.BadRequest("Помилка. Неможливо видалити!"))
         res.json({message: "Продукт успішно видлалено!"})
     }
-
 }
 
 module.exports = new BasketController()

@@ -23,4 +23,8 @@ export default class UserStore {
     get user() {
         return this._user;
     }
+
+    getId(){
+        return this._user.id
+    }
 }

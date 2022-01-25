@@ -6,9 +6,14 @@ import DeviceList from "../components/DeviceList";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {fetchBrand, fetchDevice, fetchType} from "../http/deviceApi";
+import {check} from "../http/userAPI";
 
 const Shop = observer(() => {
-    const {device} = useContext(Context)
+    const {device, user} = useContext(Context)
+    const loadUser = () => check().then(data=>{
+        user.setUser(data)
+        user.setIsAuth(true)
+    })
     const loadTypes = () => fetchType().then(data => device.setTypes(data)) //promise
     const loadBrands = async () => device.setBrands(await fetchBrand())     //async
     const loadDevices = () => fetchDevice(device.selectedBrand.id, device.selectedType.id).then(data=>device.setDevices(data.rows))
@@ -16,6 +21,7 @@ const Shop = observer(() => {
         loadBrands()
         loadTypes()
         loadDevices()
+        loadUser()
     }, [device.selectedBrand, device.selectedType])
     return (
         <Container>
