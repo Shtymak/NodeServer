@@ -61,7 +61,7 @@ class DeviceController {
         const {count, rows} = await Rating.findAndCountAll({where: {deviceId: id}})
         const rating = Math.ceil(rows.reduce((total, row) => {
             return total + row.rate
-        }, 0) / count)
+        }, 0) / count || 0)
         if (rating !== device.rating)
             await device.update({rating: rating})
         return res.json(device)

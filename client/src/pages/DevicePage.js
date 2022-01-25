@@ -12,18 +12,17 @@ const DevicePage = observer(() => {
     const ratings = [1, 2, 3, 4, 5]
     const {id} = useParams()
     const loadDevice = async () => (setDevice(await fetchOneDevice(id)))
-    const loadRating = () => fetchRating(id).then(data => setRating(data.rows / data.count))
+    const loadRating = () => fetchRating(id).then(data => {setRating(data.rows/data.count)})
     const addRating = async () => {
         try {
             await createRating({deviceId: id, rate: rating})
-            await loadRating()
         } catch (e) {
             alert(e.response.data.message)
         }
     }
-    useEffect(async () => {
-        await loadDevice()
-        await loadRating()
+    useEffect( () => {
+         loadDevice()
+         loadRating()
     }, [])
     return (
         <Container className="mt-3">
@@ -68,9 +67,7 @@ const DevicePage = observer(() => {
             </Row>
             <Row className="d-flex flex-column m-3">
                 <h1>Оцінка: </h1>
-                <FormSelect onChange={e => {
-                    setRating(e.target.value)
-                }}>
+                <FormSelect onChange={e => setRating(e.target.value)}>
                     {ratings.map(rating =>
                         <option value={rating}
                                 key={rating}>
