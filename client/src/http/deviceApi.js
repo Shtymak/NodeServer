@@ -36,8 +36,7 @@ export const fetchOneDevice = async (id) => {
 }
 
 export const createRating = async (rating) => {
-    const {data} = await $authHost.post(routes.rating, rating)
-    return data
+ await $authHost.post(routes.rating, {deviceId: rating.deviceId, rate: rating.rate})
 }
 
 export const fetchRating = async (id) => {
