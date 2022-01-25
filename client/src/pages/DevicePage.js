@@ -3,8 +3,10 @@ import {Button, Card, Col, Container, FormSelect, Image, Row} from "react-bootst
 import star from "../assets/star.png"
 import {createRating, fetchOneDevice, fetchRating} from "../http/deviceApi";
 import {useParams} from "react-router-dom";
-import {login} from "../http/userAPI";
 import {observer} from "mobx-react-lite";
+import {ToastContainer, toast} from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+import {addToBasket} from "../http/basketAPI";
 
 const DevicePage = observer(() => {
     const [device, setDevice] = useState({info: []})
@@ -17,10 +19,13 @@ const DevicePage = observer(() => {
     })
     const addRating = async () => {
         try {
-            await createRating({deviceId: id, rate: rating}).then(() => loadDevice())
+            await createRating({deviceId: id, rate: rating}).then(() => loadDevice()).then(()=>toast.info("Дякуюємо за оцінку ❤️"))
         } catch (e) {
-            alert(e.response.data.message)
+            toast.error(`${e.response.data.message} ✅`)
         }
+    }
+    const addItem = () => {
+        addToBasket(id).then(() => toast.success("Успішно додано", {}))
     }
     useEffect(() => {
         loadDevice()
@@ -55,7 +60,8 @@ const DevicePage = observer(() => {
                         style={{width: 300, height: 300, fontSize: 32, border: '5px solid lightgray'}}
                     >
                         <h3>От: {device.price} грн.</h3>
-                        <Button variant={"outline-dark"}>Додати в кошик</Button>
+                        <Button variant={"outline-dark"}
+                        onClick={addItem}>Додати в кошик</Button>
                     </Card>
                 </Col>
             </Row>
@@ -79,6 +85,7 @@ const DevicePage = observer(() => {
                 </FormSelect>
                 <Button onClick={() => addRating()}>Оцінити!</Button>
             </Row>
+            <ToastContainer/>
         </Container>
     );
 });

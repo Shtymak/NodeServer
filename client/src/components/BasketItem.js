@@ -1,14 +1,16 @@
 import React, {useState} from 'react';
 import classes from "../modules/BasketItem.module.css";
-import {Card, Col, FormControl, Image, Row} from "react-bootstrap";
+import {Card, Col, FormControl, Image, Nav, Row} from "react-bootstrap";
 import {deleteFromBasket} from "../http/basketAPI";
 import {observer} from "mobx-react-lite";
 import trashIcon from "../assets/trash.png"
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import {DEVICE_ROUTE} from "../utils/consts";
+import {useHistory} from "react-router-dom";
 
 const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total}) => {
-
+    const history = useHistory()
     const deleteDevice = async () => {
         await deleteFromBasket({deviceId: device.id})
         deleteFromBasketList(device.id)
@@ -35,7 +37,7 @@ const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total
                         />
                     </Col>
                     <Col md={6}>
-                        {device.name}
+                        <Nav.Link onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>{device.name}</Nav.Link>
                         <div>
                             Кількість:
                             <FormControl type="number"
