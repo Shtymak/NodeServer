@@ -7,8 +7,11 @@ export default class DeviceStore {
         this._devices = []
         this._selectedType = {}
         this._selectedBrand = {}
+        this._sortBy = () => (a, b) => a.name >= b.name ? 1 : -1
         makeAutoObservable(this)
     }
+
+
 
 
     get selectedBrand() {
@@ -20,7 +23,7 @@ export default class DeviceStore {
     }
 
     get types() {
-        return this._types.slice().sort((a, b) => a.name >= b.name ? 1 : -1)
+        return this._types.slice().sort(this._sortBy)
     }
 
     setTypes(value) {
@@ -28,7 +31,7 @@ export default class DeviceStore {
     }
 
     get brands() {
-        return this._brands.slice().sort((a, b) => a.name >= b.name ? 1 : -1);
+        return this._brands.slice().sort(this._sortBy);
     }
 
     setBrands(value) {
