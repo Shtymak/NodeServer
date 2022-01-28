@@ -90,7 +90,6 @@ class DeviceController {
         }catch (error){
             return res.json({message: `Сталася помилка при видаленні предмету`})
         }
-
     }
 }
 
