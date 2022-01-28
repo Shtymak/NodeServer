@@ -74,10 +74,23 @@ class DeviceController {
         try {
             await candidate.update(object)
             await candidate.save()
+            return res.json(candidate)
         }catch (error){
             return res.json({message: ApiError.Internal(`Сталася помилка при оновленні ${candidate.id}`)})
         }
-        return res.json(candidate)
+    }
+    async destroy(req, res, next){
+        const {id} = req.body
+        const candidate = await Device.findOne({where: {id}})
+        if(!candidate)
+            return next(ApiError.Internal("Неможливо видалити неіснуючий предмет!"))
+        try {
+            await candidate.destroy()
+            return res.json({message: `Предмет ${id} успішно видалено!`})
+        }catch (error){
+            return res.json({message: `Сталася помилка при видаленні предмету`})
+        }
+
     }
 }
 
