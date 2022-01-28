@@ -66,6 +66,19 @@ class DeviceController {
             await device.update({rating: rating})
         return res.json(device)
     }
+    async update(req, res, next){
+        const {id, object} = req.body
+        const candidate = await Device.findOne({where: {id}})
+        if(!candidate)
+            return next(ApiError.Internal("Неможливо оновити неіснуючий предмет!"))
+        try {
+            await candidate.update(object)
+            await candidate.save()
+        }catch (error){
+            return res.json({message: ApiError.Internal(`Сталася помилка при оновленні ${candidate.id}`)})
+        }
+        return res.json(candidate)
+    }
 }
 
 module.exports = new DeviceController()
