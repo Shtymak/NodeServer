@@ -1,4 +1,4 @@
-const {Device, DeviceInfo, Rating} = require('../models/models')
+const {Device, DeviceInfo, Rating, Brand} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
 const fileType = '.jpg'
@@ -72,9 +72,7 @@ class DeviceController {
         const updaterId = req.user.id
         if (updaterId !== userId)
             return next(ApiError.Forbidden("Неможливо змінити чужий предмет!"))
-        const candidate = await Device.findOne({where: {id}})
-        if (!candidate)
-            return next(ApiError.Internal("Неможливо оновити неіснуючий предмет!"))
+        const candidate = this.#candidate(id, next)
         try {
             const updateMask = (object) => {
                 return {
@@ -97,15 +95,21 @@ class DeviceController {
         const deleterId = req.user.id
         if (deleterId !== userId)
             return next(ApiError.Forbidden("Неможливо видалити чужий предмет!"))
-        const candidate = await Device.findOne({where: {id}})
-        if (!candidate)
-            return next(ApiError.Internal("Неможливо видалити неіснуючий предмет!"))
+        const candidate = this.#candidate(id, next)
         try {
             await candidate.destroy()
             return res.json({message: `Предмет ${id} успішно видалено!`})
         } catch (error) {
             return res.json({message: `Сталася помилка при видаленні предмету`})
         }
+    }
+
+    async #candidate(id, next) {
+        const candidate = await Brand.findOne({where: {id}})
+        if (!candidate) {
+            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
+        }
+        return candidate
     }
 }
 
