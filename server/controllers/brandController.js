@@ -1,4 +1,4 @@
-const {Brand, Type} = require('../models/models')
+const {Brand} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class BrandController {
@@ -10,7 +10,10 @@ class BrandController {
 
     async update(req, res, next) {
         const {id, object} = req.body
-        const brand = this.#candidate(id, next)
+        const brand =  await Brand.findOne({where: {id}})
+        if (!brand) {
+            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
+        }
         try {
             const updateMask = (object) => {
                 return {
@@ -27,7 +30,10 @@ class BrandController {
 
     async destroy(req, res, next) {
         const {id} = req.body
-        const brand = this.#candidate(id, next)
+        const brand =  await Brand.findOne({where: {id}})
+        if (!brand) {
+            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
+        }
         try {
             await brand.destroy()
             return res.json({message: `Бернд ${brand.name} успішно видалено!`})
@@ -40,14 +46,6 @@ class BrandController {
     async getAll(req, res) {
         const brands = await Brand.findAll()
         return res.json(brands)
-    }
-
-    async #candidate(id, next) {
-        const candidate = await Brand.findOne({where: {id}})
-        if (!candidate) {
-            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
-        }
-        return candidate
     }
 }
 

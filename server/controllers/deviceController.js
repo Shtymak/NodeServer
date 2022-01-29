@@ -1,9 +1,8 @@
-const {Device, DeviceInfo, Rating, Brand} = require('../models/models')
+const {Device, DeviceInfo, Rating} = require('../models/models')
 const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
 const fileType = '.jpg'
 const path = require('path')
-const {log} = require("nodemon/lib/utils");
 
 class DeviceController {
     async create(req, res, next) {
@@ -12,7 +11,7 @@ class DeviceController {
             const {id} = req.user
             const {img} = req.files
             let fileName = uuid.v4() + fileType
-            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+            img.mv(path.resolve(__dirname, '..', 'static', fileName)).then(r => console.log(r))
             const device = await Device.create({name, price, brandId, typeId, img: fileName, userId: id})
 
             if (info) {
@@ -72,7 +71,10 @@ class DeviceController {
         const updaterId = req.user.id
         if (updaterId !== userId)
             return next(ApiError.Forbidden("Неможливо змінити чужий предмет!"))
-        const candidate = this.#candidate(id, next)
+        const candidate = await Device.findOne({where: {id}})
+        if (!candidate) {
+            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
+        }
         try {
             const updateMask = (object) => {
                 return {
@@ -95,21 +97,16 @@ class DeviceController {
         const deleterId = req.user.id
         if (deleterId !== userId)
             return next(ApiError.Forbidden("Неможливо видалити чужий предмет!"))
-        const candidate = this.#candidate(id, next)
+        const candidate = await Device.findOne({where: {id}})
+        if (!candidate) {
+            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
+        }
         try {
             await candidate.destroy()
             return res.json({message: `Предмет ${id} успішно видалено!`})
         } catch (error) {
             return res.json({message: `Сталася помилка при видаленні предмету`})
         }
-    }
-
-    async #candidate(id, next) {
-        const candidate = await Brand.findOne({where: {id}})
-        if (!candidate) {
-            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
-        }
-        return candidate
     }
 }
 

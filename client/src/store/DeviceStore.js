@@ -23,7 +23,7 @@ export default class DeviceStore {
     }
 
     get types() {
-        return this._types.slice().sort(this._sortBy)
+        return this._types.slice().sort(this._sortBy())
     }
 
     setTypes(value) {
@@ -31,7 +31,7 @@ export default class DeviceStore {
     }
 
     get brands() {
-        return this._brands.slice().sort(this._sortBy);
+        return this._brands.slice().sort(this._sortBy());
     }
 
     setBrands(value) {

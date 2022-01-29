@@ -1,4 +1,4 @@
-const {Type, Brand} = require('../models/models')
+const {Type} = require('../models/models')
 const ApiError = require('../error/ApiError')
 
 class TypeController {
@@ -15,7 +15,10 @@ class TypeController {
 
     async update(req, res, next) {
         const {id, object} = req.body
-        const type = this.#candidate(id, next)
+        const type = await Type.findOne({where: {id}})
+        if (!type) {
+            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
+        }
         try {
             const updateMask = (object) => {
                 return {
@@ -30,24 +33,20 @@ class TypeController {
         }
     }
 
+
     async destroy(req, res, next) {
         const {id} = req.body
-        const brand = this.#candidate(id, next)
+        const type = await Type.findOne({where: {id}})
+        if (!type) {
+            return next(ApiError.Internal("Неможливо оновити неіснуючий тип!"))
+        }
         try {
-            await brand.destroy()
-            return res.json({message: `Бернд ${brand.name} успішно видалено!`})
+            await type.destroy()
+            return res.json({message: `Тип ${type.name} успішно видалено!`})
         } catch (error) {
-            return res.json({message: `Сталася помилка при видаленні бренду!`})
+            return res.json({message: `Сталася помилка при видаленні типу!`})
         }
 
-    }
-
-    async #candidate(id, next) {
-        const candidate = await Type.findOne({where: {id}})
-        if (!candidate) {
-            return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
-        }
-        return candidate
     }
 }
 
