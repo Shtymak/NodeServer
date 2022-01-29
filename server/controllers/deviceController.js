@@ -76,7 +76,15 @@ class DeviceController {
         if (!candidate)
             return next(ApiError.Internal("Неможливо оновити неіснуючий предмет!"))
         try {
-            await candidate.update(object)
+            const updateMask = (object) => {
+                return {
+                    name: object.name,
+                    price: object.price,
+                    typeId: object.typeId,
+                    brandId: object.brandId
+                }
+            }
+            await candidate.update(updateMask(object))
             await candidate.save()
             return res.json(candidate)
         } catch (error) {
