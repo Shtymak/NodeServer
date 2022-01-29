@@ -66,28 +66,36 @@ class DeviceController {
             await device.update({rating: rating})
         return res.json(device)
     }
-    async update(req, res, next){
-        const {id, object} = req.body
+
+    async update(req, res, next) {
+        const {id, userId, object} = req.body
+        const updaterId = req.user.id
+        if (updaterId !== userId)
+            return next(ApiError.Forbidden("Неможливо змінити чужий предмет!"))
         const candidate = await Device.findOne({where: {id}})
-        if(!candidate)
+        if (!candidate)
             return next(ApiError.Internal("Неможливо оновити неіснуючий предмет!"))
         try {
             await candidate.update(object)
             await candidate.save()
             return res.json(candidate)
-        }catch (error){
+        } catch (error) {
             return res.json({message: ApiError.Internal(`Сталася помилка при оновленні ${candidate.id}`)})
         }
     }
-    async destroy(req, res, next){
-        const {id} = req.body
+
+    async destroy(req, res, next) {
+        const {id, userId} = req.body
+        const deleterId = req.user.id
+        if (deleterId !== userId)
+            return next(ApiError.Forbidden("Неможливо видалити чужий предмет!"))
         const candidate = await Device.findOne({where: {id}})
-        if(!candidate)
+        if (!candidate)
             return next(ApiError.Internal("Неможливо видалити неіснуючий предмет!"))
         try {
             await candidate.destroy()
             return res.json({message: `Предмет ${id} успішно видалено!`})
-        }catch (error){
+        } catch (error) {
             return res.json({message: `Сталася помилка при видаленні предмету`})
         }
     }
