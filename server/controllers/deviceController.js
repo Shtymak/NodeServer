@@ -3,6 +3,7 @@ const ApiError = require('../error/ApiError')
 const uuid = require('uuid')
 const fileType = '.jpg'
 const path = require('path')
+const fs = require('fs')
 
 class DeviceController {
     async create(req, res, next) {
@@ -10,7 +11,7 @@ class DeviceController {
             let {name, price, brandId, typeId, info} = req.body
             const {id} = req.user
             const {img} = req.files
-            let fileName = uuid.v4() + fileType
+            const fileName = uuid.v4() + fileType
             img.mv(path.resolve(__dirname, '..', 'static', fileName)).then(r => console.log(r))
             const device = await Device.create({name, price, brandId, typeId, img: fileName, userId: id})
 
@@ -67,7 +68,11 @@ class DeviceController {
     }
 
     async update(req, res, next) {
-        const {id, userId, object} = req.body
+        const {id} = req.body
+        let {object} = req.body
+        object = JSON.parse(object)
+        const {img} = req.files
+        const userId = object.userId
         const updaterId = req.user.id
         if (updaterId !== userId)
             return next(ApiError.Forbidden("Неможливо змінити чужий предмет!"))
@@ -76,12 +81,33 @@ class DeviceController {
             return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
         }
         try {
+
+
+            const fileName = uuid.v4() + fileType
+            await img.mv(path.resolve(__dirname, '..', 'static', fileName))
+            const oldImageName = object.img
+            try {
+                const removeFileAsync = async (path) => {
+                    return new Promise((resolve, reject) =>
+                        fs.rm(path, (err) => {
+                            if (err)
+                                return reject(err.message)
+                            resolve()
+                        })
+                    )
+                }
+                removeFileAsync(path.resolve(__dirname, '..', 'static', oldImageName))
+                    .then(() => console.log("Файл видалено"))
+            } catch (error) {
+                return res.json({message: error.message})
+            }
             const updateMask = (object) => {
                 return {
                     name: object.name,
                     price: object.price,
                     typeId: object.typeId,
-                    brandId: object.brandId
+                    brandId: object.brandId,
+                    img: fileName
                 }
             }
             await candidate.update(updateMask(object))
