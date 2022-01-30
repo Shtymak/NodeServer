@@ -4,6 +4,7 @@ import {check, fetchUserDevices} from "../http/userAPI";
 import {observer} from "mobx-react-lite";
 import {useHistory} from "react-router-dom";
 import {DEVICE_ROUTE} from "../utils/consts";
+import {Button} from "react-bootstrap";
 
 const Profile = observer(() => {
     const {user} = useContext(Context)
@@ -30,6 +31,7 @@ const Profile = observer(() => {
                     </div>)
                 :
                 <div>Ви не публікували товари</div>}
+            <Button>Додати новий товар</Button>
         </div>
     );
 });
