@@ -27,3 +27,8 @@ export const check = async () => {
     return jwt_decode(data.token)
 }
 
+export const fetchUserDevices = async () => {
+    const {data} = await $authHost.get('api/user/own')
+    return data
+}
+

@@ -18,17 +18,14 @@ const Auth = observer(() => {
         try {
             let userData
             if (isLogin === false) {
-                userData = await registration(email, password)
-                console.log(userData)
+                await registration(email, password)
             } else {
-                userData = await login(email, password)
-                console.log(userData)
+                await login(email, password)
             }
             user.setUser(user)
             user.setIsAuth(true)
             history.push(SHOP_ROUTE)
-        }
-        catch (error){
+        } catch (error) {
             const message = error.response.data.message
             alert(message)
         }

@@ -81,8 +81,6 @@ class DeviceController {
             return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
         }
         try {
-
-
             const fileName = uuid.v4() + fileType
             await img.mv(path.resolve(__dirname, '..', 'static', fileName))
             const oldImageName = object.img
