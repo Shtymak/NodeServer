@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import BasketList from "../components/BasketList";
+import BasketList from "../components/Basket/BasketList";
 import {fetchBasket} from "../http/basketAPI";
 import classes from "../modules/Basket.module.css";
 import {observer} from "mobx-react-lite";

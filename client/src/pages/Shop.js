@@ -1,8 +1,8 @@
 import React, {useContext, useEffect} from 'react';
 import {Col, Container, Row} from "react-bootstrap";
-import TypeBar from "../components/TypeBar";
-import BrandBar from "../components/BrandBar";
-import DeviceList from "../components/DeviceList";
+import TypeBar from "../components/Shop/TypeBar";
+import BrandBar from "../components/Shop/BrandBar";
+import DeviceList from "../components/Shop/DeviceList";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {fetchBrand, fetchDevice, fetchType} from "../http/deviceApi";

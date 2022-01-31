@@ -1,12 +1,12 @@
 import React, {useContext} from 'react';
 import {Card, Col, Image} from "react-bootstrap";
-import classes from "../modules/DeviceItem.module.css"
-import star from "../assets/star.png"
+import classes from "../../modules/DeviceItem.module.css"
+import star from "../../assets/star.png"
 import {useHistory} from "react-router-dom";
-import {DEVICE_ROUTE} from "../utils/consts";
-import {addToBasket} from "../http/basketAPI";
-import {Context} from "../index";
-import addIcon from "../assets/addToCart.png"
+import {DEVICE_ROUTE} from "../../utils/consts";
+import {addToBasket} from "../../http/basketAPI";
+import {Context} from "../../index";
+import addIcon from "../../assets/addToCart.png"
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 

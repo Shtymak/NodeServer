@@ -36,12 +36,17 @@ export const fetchOneDevice = async (id) => {
 }
 
 export const createRating = async (rating) => {
- await $authHost.post(routes.rating, {deviceId: rating.deviceId, rate: rating.rate})
+    await $authHost.post(routes.rating, {deviceId: rating.deviceId, rate: rating.rate})
 }
 
 export const fetchRating = async (id) => {
     const {data} = await $host.get(`api/rating/${id}`)
     return {data}
+}
+
+export const removeDevice = async (device) => {
+    const {data} = await $authHost.delete(`api/device`, {data: {id: device.id, userId: device.userId}})
+    return data
 }
 
 //TODO: fetch basket

@@ -1,12 +1,12 @@
 import React, {useState} from 'react';
-import classes from "../modules/BasketItem.module.css";
+import classes from "../../modules/BasketItem.module.css";
 import {Card, Col, FormControl, Image, Nav, Row} from "react-bootstrap";
-import {deleteFromBasket} from "../http/basketAPI";
+import {deleteFromBasket} from "../../http/basketAPI";
 import {observer} from "mobx-react-lite";
-import trashIcon from "../assets/trash.png"
+import trashIcon from "../../assets/trash.png"
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import {DEVICE_ROUTE} from "../utils/consts";
+import {DEVICE_ROUTE} from "../../utils/consts";
 import {useHistory} from "react-router-dom";
 
 const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total}) => {
