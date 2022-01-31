@@ -13,9 +13,13 @@ const UserDeviceList = observer(({show, handleClose}) => {
     }
     return (
         <Modal show={show} onHide={handleClose}>
-            <Row className="d-flex">
-                {user.devices.map(device => <UserDeviceItem key={device.id} device={device} removeItem={removeItem}/>)}
-            </Row>
+            {user.devices.length > 0 ?
+                <Row className="d-flex">
+                    {user.devices.map(device => <UserDeviceItem key={device.id} device={device}
+                                                                removeItem={removeItem}/>)}
+                </Row>
+                :
+                <div>Ви не публікували товари</div>}
         </Modal>
     );
 });

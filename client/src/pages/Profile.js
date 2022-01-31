@@ -28,10 +28,9 @@ const Profile = observer(() => {
     return (
         <div>
             {currentUser.email}
-            {user.devices ?
-                <UserDeviceList show={show} handleClose={handleClose}/>
-                :
-                <div>Ви не публікували товари</div>}
+
+            <UserDeviceList show={show} handleClose={handleClose}/>
+
             <Button>Додати новий товар</Button>
             <Button variant="primary" onClick={handleShow}>
                 Мої публікації
