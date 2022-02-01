@@ -19,27 +19,37 @@ const Basket = observer(() => {
     const [totalCount, setTotalCount] = useState(0)
     useEffect(loadBasket, [])
     return (
-        <Container className={classes.box}>
-            <Row>
 
-                    <div className={classes.title}>
-                        <h1 className="">Кошик</h1>
-                    </div>
-                <Col md={8}>
+        <Container className={classes.box}>
+            <div className={classes.blur}>
+            </div>
+            <Row>
+                <div className={classes.title}>
+                    <h1>Кошик</h1>
+                </div>
+                <div className={classes.show}>
+                    <h4 className={classes.title}>Назва</h4>
+                    <h4 className={classes.text}>Ціна</h4>
+                    <h4 className={classes.count}>Кількість</h4>
+                </div>
+                <hr/>
+                <div className={classes.content}>
                     <div>
                         <BasketList basket={basket} totalPrice={totalPrice} setTotalPrice={setTotalPrice}/>
                     </div>
-                </Col>
-                <Col md={4}>
-                    <Card className={classes.info}>
-                        <div className={classes.price}>
-                            Загальна сума покупки: {totalPrice}
-                        </div>
-                        <div className={classes.price}>
-                            Кількість одиниць: {totalCount}
-                        </div>
-                    </Card>
-                </Col>
+                </div>
+
+
+                {/*<Col md={4}>*/}
+                {/*    <Card className={classes.info}>*/}
+                {/*        <div className={classes.price}>*/}
+                {/*            Загальна сума покупки: {totalPrice}*/}
+                {/*        </div>*/}
+                {/*        <div className={classes.price}>*/}
+                {/*            Кількість одиниць: {totalCount}*/}
+                {/*        </div>*/}
+                {/*    </Card>*/}
+                {/*</Col>*/}
             </Row>
         </Container>
     );

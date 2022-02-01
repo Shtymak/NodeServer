@@ -1,24 +1,77 @@
-.col {
-    /*height: 21vh;*/
-    /*width: 55vw;*/
-    margin: 5px auto auto;
-}
 
 .card {
-    display: flex;
-    height: 21vh;
-    width: 55vw;
-    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 5px;
+    /*border: 1px solid transparent;*/
+    /*border-image: 1 linear-gradient(cyan, purple);*/
+    padding: 10px 10px 10px 10px;
+    z-index: 2;
+    background: white;
 }
 
 ._image {
-    margin-left: auto;
-    width: 50px;
-    height: 50px;
+    margin-left: 5px;
+    width: 80px;
+    height: 80px;
+    /*border: 1px rgba(25, 0, 255, 0.56) solid;*/
 }
 
 .icon {
-    margin-left: auto;
-    width: 18px;
-    height: 18px;
+    width: 20px;
+    height: 20px;
+    margin-left: 90px;
+}
+
+.price {
+    display: inline-block;
+}
+
+.column {
+    margin-left: 2px;
+    display: inline-block;
+}
+
+.count {
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+.selector {
+    float: right;
+}
+
+.counters {
+    display: flex;
+    flex-direction: column;
+}
+
+.wrapper {
+    margin-left: 2px;
+    display: inline-block;
+    float: right;
+}
+
+
+.show {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px;
+}
+
+.title {
+    margin: 0 auto;
+    width: 20vw;
+}
+
+.photo {
+    margin: 0 0 auto;
+}
+
+.text {
+    margin-right: 18vw;
+}
+.text2 {
+    margin-right: 50px;
 }

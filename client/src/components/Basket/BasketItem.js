@@ -8,6 +8,8 @@ import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {DEVICE_ROUTE} from "../../utils/consts";
 import {useHistory} from "react-router-dom";
+import down from "../../assets/down.png"
+import up from "../../assets/up.png"
 
 const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total}) => {
     const history = useHistory()
@@ -27,35 +29,38 @@ const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total
     }
     let [count, setCount] = useState(1)
     return (
-        <Col className={classes.col}>
-            <Card className={classes.card}>
-                <Row>
-                    <Col md={3} className="d-flex align-items-center justify-content-center">
-                        <Image
-                            src={process.env.REACT_APP_API_URL + device.img}
-                            className={classes._image}
-                        />
-                    </Col>
-                    <Col md={6}>
-                        <Nav.Link onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>{device.name}</Nav.Link>
-                        <div>
-                            Кількість:
-                            <FormControl type="number"
-                                         defaultValue={1}
-                                         min={1}
-                                         max={10}
-                                         onChange={e => {
-                                             setCount(e.target.value)
-                                             setTotalPrice(total + device.price)
-                                         }}/>
+        <div>
+            <div className={classes.show}>
+                <div className={classes.photo}>
+                    <Image
+                        src={process.env.REACT_APP_API_URL + device.img}
+                        className={classes._image}
+                    />
+                </div>
+                <div className={classes.title}>
+                    <Nav.Link onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>{device.name}</Nav.Link>
+                </div>
+
+                <div className={classes.text}>
+                    {count * device.price}
+                </div>
+
+                <div className={classes.text2}>
+                    <div className={classes.column}>
+                        <span>
+                            {count}
+                        </span>
+                    </div>
+                    <div className={classes.column}>
+                        <div className={classes.counters}>
+                            <Image src={up} className={classes.count} onClick={() => setCount(count + 1)}/>
+                            <Image src={down} className={classes.count}
+                                   onClick={() => setCount(count > 1 ? count - 1 : 1)}/>
                         </div>
-                    </Col>
-                </Row>
-                <div className="d-flex">
-                    Загальна вартість: {count * device.price}
+                    </div>
                     <Image className={classes.icon} onClick={deleteDevice} src={trashIcon}/>
                 </div>
-            </Card>
+            </div>
             <ToastContainer
                 position="top-right"
                 autoClose={3000}
@@ -67,7 +72,8 @@ const BasketItem = observer(({device, deleteFromBasketList, setTotalPrice, total
                 draggable
                 pauseOnHover={false}
             />
-        </Col>
+            <hr/>
+        </div>
     );
 });
 
