@@ -12,6 +12,7 @@ import basket from "../assets/basket2.png"
 import {BASKET_ROUTE} from "../utils/consts";
 import {useHistory} from "react-router-dom";
 import "../modules/Shop.css"
+import {fab} from "../utils/style"
 
 const Shop = observer(() => {
     const {device, user} = useContext(Context)
@@ -42,23 +43,11 @@ const Shop = observer(() => {
                     </Col>
                 </Row>
             </Container>
-            <Fab style={fabStyle} aria-label="add" onClick={() => history.push(BASKET_ROUTE)}>
-                <img src={basket} style={{height: "50%", width: "50%"}}/>
+            <Fab style={fab} aria-label="add" onClick={() => history.push(BASKET_ROUTE)}>
+                <img src={basket} style={{height: "50%", width: "50%"}} alt="basket"/>
             </Fab>
         </div>
     );
 });
-const fabStyle = {
-    margin: 0,
-    top: "auto",
-    right: 20,
-    bottom: 20,
-    left: "auto",
-    position: "fixed",
-    background: "#3e2c92",
-    zIndex: 20,
-    alignItems: "center",
-    justifyContent: "center",
-    padding: 1,
-};
+
 export default Shop;
