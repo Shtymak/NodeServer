@@ -28,9 +28,9 @@ const Basket = observer(() => {
                     <h1>Кошик</h1>
                 </div>
                 <div className={classes.show}>
-                    <h4 className={classes.title}>Назва</h4>
-                    <h4 className={classes.text}>Ціна</h4>
-                    <h4 className={classes.count}>Кількість</h4>
+                    <span className={classes.title}>Назва</span>
+                    <span className={classes.text}>Ціна</span>
+                    <span className={classes.count}>Кількість</span>
                 </div>
                 <hr/>
                 <div className={classes.content}>

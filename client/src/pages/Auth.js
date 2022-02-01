@@ -16,7 +16,6 @@ const Auth = observer(() => {
 
     const enter = async () => {
         try {
-            let userData
             if (isLogin === false) {
                 await registration(email, password)
             } else {
