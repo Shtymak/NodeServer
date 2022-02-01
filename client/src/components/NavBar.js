@@ -1,16 +1,39 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../index";
 import {BASKET_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE} from "../utils/consts";
 import "../modules/index.css"
 import {observer} from "mobx-react-lite";
 import {Link, useHistory} from "react-router-dom";
-import basket from "../assets/basket.png"
+import logout from "../assets/logout.png"
 import login from "../assets/login.png"
+import {check, fetchUserDevices} from "../http/userAPI";
+import UserDeviceList from "./Profile/UserDeviceList";
+
 
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
     const history = useHistory()
+    const logOut = () => {
+        user.setUser({})
+        user.setIsAuth(false)
+        localStorage.setItem('token', '')
+        history.push(SHOP_ROUTE)
+    }
+    const loadUser = () => check().then(data => {
+        user.setUser(data)
+        user.setIsAuth(true)
+    })
+    const loadUserDevices = () =>
+        fetchUserDevices().then(data => user.setDevices(data.rows || []))
+
+    useEffect(async () => {
+        await loadUser()
+        await loadUserDevices()
+    }, [])
+    const [show, setShow] = useState(false);
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true)
     return (
         <div>
             <div className="nav-bar-container-light">
@@ -25,23 +48,30 @@ const NavBar = observer(() => {
                             Товари
                         </Link>
                     </li>
-                    {user.isAuth ?
-                        <li className="list-item">
-                            <Link to={PROFILE_ROUTE} className="link-light">
-                                Профіль
-                            </Link>
-                        </li> : <div>
+                    {user.isAuth ? (
+                        <ul className="middle-items">
+                            <li className="list-item">
+                                <Link  className="link-light">
+                                    Додати товар
+                                </Link>
+                            </li>
+                            <li className="list-item">
+                                <Link onClick={handleShow} className="link-light">
+                                    Мої товари
+                                </Link>
+                            </li>
+                        </ul>) : <div>
 
-                        </div>
+                    </div>
                     }
                 </ul>
                 {user.isAuth ? (
                         <button
                             type="button"
                             className="theme-button"
-                            onClick={() => history.push(BASKET_ROUTE)}>
+                            onClick={() => logOut()}>
                             <img
-                                src={basket}
+                                src={logout}
                                 className="theme-img"
                                 alt="theme"
                             />
@@ -58,28 +88,9 @@ const NavBar = observer(() => {
                     </button>)
                 }
             < /div>
+            <UserDeviceList show={show} handleClose={handleClose}/>
+
         </div>
     );
 });
-// <Navbar bg="dark" variant="dark">
-// <Container>
-// <NavLink className={classes.main_link} onClick={() => history.push(SHOP_ROUTE)}>Dodo</NavLink>
-// <Nav className='d-flex basket'>
-// <Image src={basket}
-//                    className={classes.basket}
-//                    onClick={() => history.push(BASKET_ROUTE)}/>
-//         </Nav>
-//         {user.isAuth ?
-//             <Nav className={classes.nav_components}>
-//                 <Button variant={"outline-primary"}
-//                         onClick={() => logOut()}>Вийти</Button>
-//             </Nav>
-//             :
-//             <Nav className={classes.nav_components}>
-//                 <Button variant={"outline-primary"} onClick={() => history.push(LOGIN_ROUTE)}>Ввійти</Button>
-//             </Nav>
-//         }
-//
-//     </Container>
-// </Navbar>
 export default NavBar;

@@ -10,6 +10,10 @@
     border-bottom-color: #dcdcdc;
     border-bottom-width: 2px;
     height: 60px;
+    position: fixed;
+    z-index: 1;
+    overflow: hidden;
+    top: 0;
 }
 
 .website-logo {

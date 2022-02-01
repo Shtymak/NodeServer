@@ -19,7 +19,7 @@ const UserDeviceList = observer(({show, handleClose}) => {
                                                                 removeItem={removeItem}/>)}
                 </Row>
                 :
-                <div>Ви не публікували товари</div>}
+                <div style={{minHeight: 50, textAlign: "center", marginTop: 10}}>Ви не публікували товари</div>}
         </Modal>
     );
 });
