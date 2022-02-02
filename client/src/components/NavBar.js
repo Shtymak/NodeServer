@@ -1,6 +1,6 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../index";
-import {BASKET_ROUTE, LOGIN_ROUTE, PROFILE_ROUTE, SHOP_ROUTE} from "../utils/consts";
+import { LOGIN_ROUTE, SHOP_ROUTE} from "../utils/consts";
 import "../modules/index.css"
 import {observer} from "mobx-react-lite";
 import {Link, useHistory} from "react-router-dom";

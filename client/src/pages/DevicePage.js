@@ -1,11 +1,11 @@
 import React, {useEffect, useState} from 'react';
+import 'react-toastify/dist/ReactToastify.css';
 import {Button, Card, Col, Container, FormSelect, Image, Row} from "react-bootstrap";
 import star from "../assets/star.png"
 import {createRating, fetchOneDevice, fetchRating} from "../http/deviceApi";
 import {useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {ToastContainer, toast} from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import {addToBasket} from "../http/basketAPI";
 
 const DevicePage = observer(() => {

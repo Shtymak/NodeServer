@@ -2,8 +2,6 @@ const Router = require("express")
 const router = new Router()
 const checkRole = require('../middleware/checkRoleMiddleware')
 const typeController = require('../controllers/typeController')
-
-// import {admin} from "../utils/consts"
 const admin = "ADMIN"
 
 router.post("/", checkRole(admin), typeController.create)

@@ -1,6 +1,5 @@
 const {Basket, BasketDevice, Device} = require("../models/models");
 const ApiError = require('../error/ApiError')
-const {log} = require("nodemon/lib/utils");
 
 
 class BasketController {

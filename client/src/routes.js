@@ -5,14 +5,12 @@ import {
     BASKET_ROUTE,
     DEVICE_ROUTE,
     LOGIN_ROUTE,
-    PROFILE_ROUTE,
     REGISTRATION_ROUTE,
     SHOP_ROUTE
 } from "./utils/consts";
 import Shop from "./pages/Shop";
 import Auth from "./pages/Auth";
 import DevicePage from "./pages/DevicePage";
-import Profile from "./pages/Profile"
 
 
 export const authRoutes = [
@@ -23,10 +21,6 @@ export const authRoutes = [
     {
         path: BASKET_ROUTE,
         Component: Basket
-    },
-    {
-        path: PROFILE_ROUTE,
-        Component: Profile
     }
 ]
 export const publicRoutes = [

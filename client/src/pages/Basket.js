@@ -4,7 +4,7 @@ import {fetchBasket} from "../http/basketAPI";
 import classes from "../modules/Basket.module.css";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
-import {Card, Col, Container, Row} from "react-bootstrap";
+import {Container, Row} from "react-bootstrap";
 
 const Basket = observer(() => {
     const {basket} = useContext(Context)

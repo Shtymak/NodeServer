@@ -1,6 +1,5 @@
 const ApiError = require('../error/ApiError')
-const {Device, User, Rating} = require('../models/models')
-const {where} = require("sequelize");
+const { Rating} = require('../models/models')
 
 class RatingController {
     async create(req, res, next) {

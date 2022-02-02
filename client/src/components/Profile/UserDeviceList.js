@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {Modal, Row} from "react-bootstrap";
 import {Context} from "../../index";
 import UserDeviceItem from "./UserDeviceItem";

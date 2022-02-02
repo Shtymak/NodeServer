@@ -2,7 +2,6 @@ const Router = require("express")
 const router = new Router()
 const brandController = require('../controllers/brandController')
 const checkRole = require('../middleware/checkRoleMiddleware')
-// import {admin} from "../utils/consts"
 const admin = "ADMIN"
 router.put('/', checkRole(admin), brandController.update)
 router.post("/", checkRole(admin), brandController.create)

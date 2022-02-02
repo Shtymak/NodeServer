@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import classes from "../../modules/BasketItem.module.css";
-import {Card, Col, FormControl, Image, Nav, Row} from "react-bootstrap";
+import { Image, Nav} from "react-bootstrap";
 import {deleteFromBasket} from "../../http/basketAPI";
 import {observer} from "mobx-react-lite";
 import trashIcon from "../../assets/trash.png"

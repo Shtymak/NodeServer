@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card, Col, Image, Nav, Row} from "react-bootstrap";
+import {Card, Col, Image} from "react-bootstrap";
 import classes from "../../modules/UserDeviceItem.module.css"
 import {DEVICE_ROUTE} from "../../utils/consts";
 import {NavLink} from "react-router-dom";
