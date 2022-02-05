@@ -19,7 +19,10 @@ const DevicePage = observer(() => {
     })
     const addRating = async () => {
         try {
-            await createRating({deviceId: id, rate: rating}).then(() => loadDevice()).then(()=>toast.info("Дякуюємо за оцінку ❤️"))
+            await createRating({
+                deviceId: id,
+                rate: rating
+            }).then(() => loadDevice()).then(() => toast.info("Дякуюємо за оцінку ❤️"))
         } catch (e) {
             toast.error(`${e.response.data.message} ✅`)
         }
@@ -32,9 +35,13 @@ const DevicePage = observer(() => {
         loadRating()
     }, [])
     return (
-      <div>
-
-      </div>
+        <div>
+            <Row>
+                <Col md={4}>
+                    <Image width={300} height={300} src={process.env.REACT_APP_API_URL + device.img}/>
+                </Col>
+            </Row>
+        </div>
     );
 });
 // <Container className="mt-3">
