@@ -5,6 +5,7 @@ import "../modules/DevicePage.css"
 import {createRating, fetchOneDevice, fetchRating, fetchType} from "../http/deviceApi";
 import {useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
+import star from "../assets/star.png"
 import {ToastContainer, toast} from "react-toastify";
 import {addToBasket} from "../http/basketAPI";
 
@@ -12,16 +13,10 @@ import {addToBasket} from "../http/basketAPI";
 const DevicePage = observer(() => {
     const [device, setDevice] = useState({info: []})
     const [rating, setRating] = useState(0)
-    const [type, setType] = useState({name: null})
     const {id} = useParams()
     const loadDevice = () => fetchOneDevice(id).then(data => setDevice(data))
     const loadRating = () => fetchRating(id).then(data => {
         setRating(data.rows / data.count)
-    })
-    const loadType = async () => fetchType().then(data => {
-        const types = Array.from(data)
-        console.log(id)
-        console.log(device)
     })
 
     const addRating = async () => {
@@ -38,9 +33,8 @@ const DevicePage = observer(() => {
         addToBasket(id).then(() => toast.success("Успішно додано", {}))
     }
     useEffect(() => {
-        loadDevice()
-        loadRating()
-        loadType()
+        loadDevice().then()
+        loadRating().then()
 
     }, [])
 
@@ -52,8 +46,18 @@ const DevicePage = observer(() => {
                         <Image className="image" src={process.env.REACT_APP_API_URL + device.img}/>
                     </Col>
                     <Col md={4}>
-                        {type.name}
+                        <div className="attr">
+                            <span className="title">Бренд</span>
+                            <span className="title">|</span>
+                            <span className="title">Тип</span>
+                        </div>
                         <h1>{device.name}</h1>
+                        <div className="attr">
+                            <span className="price">{device.price} грн</span>
+                        </div>
+                        <div>
+                            <Image className="star" src={star}/>
+                        </div>
                     </Col>
                     <Col md={4}>
                         Hello

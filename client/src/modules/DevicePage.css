@@ -11,3 +11,18 @@
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background: rgb(252, 252, 252);
 }
+.title{
+    margin-right: 5px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+}
+.attr{
+    display: flex;
+}
+.price:hover{
+    color: forestgreen;
+    cursor: pointer;
+}
+.star{
+    height: 16px;
+    width: 16px;
+}
