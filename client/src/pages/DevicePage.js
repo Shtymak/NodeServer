@@ -6,8 +6,11 @@ import {createRating, fetchOneDevice, fetchRating, fetchType} from "../http/devi
 import {useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import star from "../assets/star.png"
+import midstar from "../assets/midstar.png"
+import lowstar from "../assets/lowstar.png"
 import {ToastContainer, toast} from "react-toastify";
 import {addToBasket} from "../http/basketAPI";
+import StepRange from "../components/StepRange";
 
 
 const DevicePage = observer(() => {
@@ -18,6 +21,16 @@ const DevicePage = observer(() => {
     const loadRating = () => fetchRating(id).then(data => {
         setRating(data.rows / data.count)
     })
+    let ratings = []
+    const loadStars = () => {
+        for (let i = 1; i <= 5; i++) {
+            if (i <= device.rating)
+                ratings.push(<Image src={star} className="star"/>)
+            else
+                ratings.push(<Image src={lowstar} className="star"/>)
+        }
+    }
+    loadStars()
 
     const addRating = async () => {
         try {
@@ -56,13 +69,34 @@ const DevicePage = observer(() => {
                             <span className="price">{device.price} грн</span>
                         </div>
                         <div>
-                            <Image className="star" src={star}/>
+                            {ratings}
                         </div>
+                        <div>
+                            <Button variant={"outline-dark"} className="addbtn" onClick={addItem}>Додати в
+                                кошик</Button>
+                        </div>
+                        <Row className="step">
+                            <Col md={6} className="select">
+                                <StepRange className="select" steps={[1, 2, 3, 4, 5]} setRating={setRating}
+                                           rating={rating}/></Col>
+                            <Col md={5}> <Button variant={"outline-dark"} className="ratebtn"
+                                                 onClick={() => addRating()}> Оцінити!</Button></Col>
+
+                        </Row>
                     </Col>
                     <Col md={4}>
-                        Hello
+                        <div className="props">
+                            <h1>Характеристики</h1>
+                            {device.info.map((info, index) =>
+                                <Row key={info.id}
+                                     style={{background: index % 2 === 0 ? 'lightgray' : 'transparent', padding: 10}}>
+                                    {info.title}: {info.description}
+                                </Row>
+                            )}
+                        </div>
                     </Col>
                 </Row>
+                <ToastContainer/>
             </Container>
         </div>
     );

@@ -1,4 +1,5 @@
 .image{
+    margin-left: 10px;
     width: 300px;
     height: 300px;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
@@ -6,7 +7,8 @@
 
 .box{
     margin-top: 65px;
-    padding: 5px;
+    padding-top: 25px;
+    padding-bottom: 25px;
     /*box-shadow: rgba(6, 24, 44, 0.4) 0 0 0 2px, rgba(6, 24, 44, 0.65) 0 4px 6px -1px, rgba(255, 255, 255, 0.08) 0 1px 0 inset;*/
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     background: rgb(252, 252, 252);
@@ -25,4 +27,26 @@
 .star{
     height: 16px;
     width: 16px;
+}
+.props{
+    padding-left: 10px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    max-width: 90%;
+}
+.addbtn{
+    margin-top: 5px;
+}
+.step{
+    display: flex;
+    flex-direction: row;
+    margin-top: 10px;
+}
+.ratebtn{
+    max-height: 35px;
+    align-items: center;
+}
+.select{
+    margin-right: 5px;
 }
