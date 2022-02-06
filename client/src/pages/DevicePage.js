@@ -1,22 +1,29 @@
 import React, {useEffect, useState} from 'react';
 import 'react-toastify/dist/ReactToastify.css';
 import {Button, Card, Col, Container, FormSelect, Image, Row} from "react-bootstrap";
-import star from "../assets/star.png"
-import {createRating, fetchOneDevice, fetchRating} from "../http/deviceApi";
+import "../modules/DevicePage.css"
+import {createRating, fetchOneDevice, fetchRating, fetchType} from "../http/deviceApi";
 import {useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
 import {ToastContainer, toast} from "react-toastify";
 import {addToBasket} from "../http/basketAPI";
 
+
 const DevicePage = observer(() => {
     const [device, setDevice] = useState({info: []})
     const [rating, setRating] = useState(0)
-    const ratings = [1, 2, 3, 4, 5]
+    const [type, setType] = useState({name: null})
     const {id} = useParams()
-    const loadDevice = async () => (setDevice(await fetchOneDevice(id)))
+    const loadDevice = () => fetchOneDevice(id).then(data => setDevice(data))
     const loadRating = () => fetchRating(id).then(data => {
         setRating(data.rows / data.count)
     })
+    const loadType = async () => fetchType().then(data => {
+        const types = Array.from(data)
+        console.log(id)
+        console.log(device)
+    })
+
     const addRating = async () => {
         try {
             await createRating({
@@ -33,14 +40,26 @@ const DevicePage = observer(() => {
     useEffect(() => {
         loadDevice()
         loadRating()
+        loadType()
+
     }, [])
+
     return (
         <div>
-            <Row>
-                <Col md={4}>
-                    <Image width={300} height={300} src={process.env.REACT_APP_API_URL + device.img}/>
-                </Col>
-            </Row>
+            <Container className="box">
+                <Row>
+                    <Col md={4}>
+                        <Image className="image" src={process.env.REACT_APP_API_URL + device.img}/>
+                    </Col>
+                    <Col md={4}>
+                        {type.name}
+                        <h1>{device.name}</h1>
+                    </Col>
+                    <Col md={4}>
+                        Hello
+                    </Col>
+                </Row>
+            </Container>
         </div>
     );
 });
