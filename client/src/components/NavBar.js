@@ -1,39 +1,27 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {Context} from "../index";
-import { LOGIN_ROUTE, SHOP_ROUTE} from "../utils/consts";
+import {LOGIN_ROUTE} from "../utils/consts";
 import "../modules/index.css"
 import {observer} from "mobx-react-lite";
 import {Link, useHistory} from "react-router-dom";
 import logout from "../assets/logout.png"
 import login from "../assets/login.png"
-import {check, fetchUserDevices} from "../http/userAPI";
 import UserDeviceList from "./Profile/UserDeviceList";
-
-
+import {loadUserDevices, loadUser, logOut} from "../helpers/userHelper";
+import {handleCloseDevices, handleShowDevices, handleShowAddDevice, handleCloseAddDevice} from "../helpers/modalHelper";
+import AddProductModal from "./Profile/AddProductModal";
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
     const history = useHistory()
-    const logOut = () => {
-        user.setUser({})
-        user.setIsAuth(false)
-        localStorage.setItem('token', '')
-        history.push(SHOP_ROUTE)
-    }
-    const loadUser = () => check().then(data => {
-        user.setUser(data)
-        user.setIsAuth(true)
-    })
-    const loadUserDevices = () =>
-        fetchUserDevices().then(data => user.setDevices(data.rows || []))
+    const [showDevices, setShowDevices] = useState(false);
+    const [showAddDevice, setShowAddDevice] = useState(false)
 
     useEffect(async () => {
-        await loadUser()
-        await loadUserDevices()
+        await loadUser(user)
+        await loadUserDevices(user)
     }, [])
-    const [show, setShow] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true)
+
     return (
         <div>
             <div className="nav-bar-container-light">
@@ -44,19 +32,22 @@ const NavBar = observer(() => {
                 />
                 <ul className="middle-items">
                     <li className="list-item">
-                        <Link to="/" className="link-light">
+                        <Link to="/"
+                              className="link-light">
                             Товари
                         </Link>
                     </li>
                     {user.isAuth ? (
                         <ul className="middle-items">
                             <li className="list-item">
-                                <Link  className="link-light">
+                                <Link onClick={() => handleShowAddDevice(setShowAddDevice)}
+                                      className="link-light">
                                     Додати товар
                                 </Link>
                             </li>
                             <li className="list-item">
-                                <Link onClick={handleShow} className="link-light">
+                                <Link onClick={() => handleShowDevices(setShowDevices)}
+                                      className="link-light">
                                     Мої товари
                                 </Link>
                             </li>
@@ -69,13 +60,14 @@ const NavBar = observer(() => {
                         <button
                             type="button"
                             className="theme-button"
-                            onClick={() => logOut()}>
+                            onClick={() => logOut(user, history)}>
                             <img
                                 src={logout}
                                 className="theme-img"
                                 alt="theme"
                             />
-                        </button>) :
+                        </button>)
+                    :
                     (<button
                         type="button"
                         className="theme-button"
@@ -88,8 +80,14 @@ const NavBar = observer(() => {
                     </button>)
                 }
             < /div>
-            <UserDeviceList show={show} handleClose={handleClose}/>
-
+            <UserDeviceList show={showDevices}
+                            handleClose={handleCloseDevices}
+                            setShowDevices={setShowDevices}
+            />
+            <AddProductModal show={showAddDevice}
+                             handleClose={handleCloseAddDevice}
+                             hide={setShowAddDevice}
+            />
         </div>
     );
 });

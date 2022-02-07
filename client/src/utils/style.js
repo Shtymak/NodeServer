@@ -1,4 +1,4 @@
-export const fab ={
+export const fab = {
     margin: 0,
     top: "auto",
     right: 20,
@@ -10,4 +10,9 @@ export const fab ={
     alignItems: "center",
     justifyContent: "center",
     padding: 1,
+}
+export const noContent = {
+    minHeight: 50,
+    textAlign: "center",
+    marginTop: 10
 }
