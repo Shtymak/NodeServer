@@ -16,3 +16,12 @@ export const noContent = {
     textAlign: "center",
     marginTop: 10
 }
+export const toastProps = {
+    position: "top-right",
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: false,
+    draggable: true,
+    progress: undefined
+}

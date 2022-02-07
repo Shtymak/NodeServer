@@ -1,5 +1,6 @@
 import {addToBasket, deleteFromBasket} from "../http/basketAPI";
 import {toast} from "react-toastify";
+import {toastProps} from "../utils/style";
 
 export function addItem(id) {
     addToBasket(id).then(() => toast.success("Успішно додано", {toastId: id}))
@@ -14,15 +15,7 @@ export async function deleteDevice(props) {
     await deleteFromBasket({deviceId: device.id})
     deleteFromBasketList(device.id)
     setTotalPrice(total - device.price * count)
-    toast.error(`${device.name} видалено`, {
-        position: "top-right",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: false,
-        draggable: true,
-        progress: undefined,
-    });
+    toast.error(`${device.name} видалено`, toastProps);
 }
 
 export function calculateDevicesPrice(data) {

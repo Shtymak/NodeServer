@@ -1,6 +1,8 @@
 import {SHOP_ROUTE} from "../utils/consts";
 import {check, fetchUserDevices, login, registration} from "../http/userAPI";
 import {toast} from "react-toastify";
+import {toastProps} from "../utils/style";
+
 
 export const logOut = (user, history) => {
     user.setUser({})
@@ -20,25 +22,9 @@ export async function deleteItem(props) {
     let deleted = window.confirm("Дійсно хочете видалити?")
     if (deleted) {
         await removeItem(device)
-        toast.error(`${device.name} видалено`, {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-        });
+        toast.error(`${device.name} видалено`, toastProps);
     } else {
-        toast.success("Ваш товар у безпеці 💖", {
-            position: "top-right",
-            autoClose: 3000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: false,
-            draggable: true,
-            progress: undefined,
-        })
+        toast.success("Ваш товар у безпеці 💖", toastProps)
     }
 }
 
