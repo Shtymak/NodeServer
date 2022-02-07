@@ -7,55 +7,27 @@ import remove from "../../assets/remove.png"
 import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {observer} from "mobx-react-lite";
+import {deleteItem} from "../../helpers/userHelper";
 
 const UserDeviceItem = observer(({device, removeItem}) => {
-    const deleteItem = async (device) => {
-        let deleted = window.confirm("Дійсно хочете видалити?")
-        if (deleted) {
-            await removeItem(device)
-            toast.error(`${device.name} видалено`, {
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-            });
-        } else {
-            toast.success("Ваш товар у безпеці 💖",{
-                position: "top-right",
-                autoClose: 3000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: false,
-                draggable: true,
-                progress: undefined,
-            })
-        }
-    }
     return (
         <Col md={12} className={classes.content}>
             <Card className={classes.card}>
                 <div className={classes.column}>
-                    <Image src={process.env.REACT_APP_API_URL + device.img} className={classes.icon}/>
+                    <Image src={process.env.REACT_APP_API_URL + device.img}
+                           className={classes.icon}/>
                     <div className={classes.column}>
-                        <NavLink to={`${DEVICE_ROUTE}/${device.id}`}>{device.name}</NavLink>
+                        <NavLink to={`${DEVICE_ROUTE}/${device.id}`}>
+                            {device.name}
+                        </NavLink>
                     </div>
-                    <Image src={remove} className={classes.remove} onClick={() => deleteItem(device)}/>
+                    <Image src={remove}
+                           className={classes.remove}
+                           onClick={() =>
+                               deleteItem({device, removeItem})}/>
                 </div>
             </Card>
-            <ToastContainer
-                position="top-right"
-                autoClose={3000}
-                hideProgressBar={false}
-                newestOnTop={false}
-                closeOnClick
-                rtl={false}
-                pauseOnFocusLoss
-                draggable
-                pauseOnHover={false}
-            />
+            <ToastContainer/>
         </Col>
     );
 });

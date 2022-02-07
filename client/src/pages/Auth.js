@@ -5,6 +5,7 @@ import {LOGIN_ROUTE, REGISTRATION_ROUTE, SHOP_ROUTE} from "../utils/consts";
 import {login, registration} from "../http/userAPI";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
+import {enter} from "../helpers/userHelper";
 
 
 const Auth = observer(() => {
@@ -13,21 +14,11 @@ const Auth = observer(() => {
     const isLogin = useLocation().pathname === LOGIN_ROUTE
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-
-    const enter = async () => {
-        try {
-            if (isLogin === false) {
-                await registration(email, password)
-            } else {
-                await login(email, password)
-            }
-            user.setUser(user)
-            user.setIsAuth(true)
-            history.push(SHOP_ROUTE)
-        } catch (error) {
-            const message = error.response.data.message
-            alert(message)
-        }
+    const enterParams = {
+        isLogin,
+        history,
+        user,
+        inputs: {email, password}
     }
     return (
         <Container className="justify-content-center align-items-center d-flex"
@@ -58,7 +49,7 @@ const Auth = observer(() => {
                                 Маєте профіль? <NavLink to={LOGIN_ROUTE}>Ввійти!</NavLink>
                             </div>
                         }
-                        <Button onClick={enter}>{isLogin ? 'Ввійти' : 'Зареєструватися'}</Button>
+                        <Button onClick={() => enter(enterParams)}>{isLogin ? 'Ввійти' : 'Зареєструватися'}</Button>
                     </Row>
                 </Form>
             </Card>

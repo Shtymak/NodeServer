@@ -9,7 +9,9 @@ const BasketList = observer(({basket, totalPrice, setTotalPrice}) => {
     return (
             <Row>
                 {basket.basketDevices.map(device =>
-                    <BasketItem total={totalPrice} device={device} setTotalPrice={setTotalPrice}
+                    <BasketItem total={totalPrice}
+                                device={device}
+                                setTotalPrice={setTotalPrice}
                                 deleteFromBasketList={deleteBasketDevice} key={device.id}/>
                 )}
             </Row>

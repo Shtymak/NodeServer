@@ -4,18 +4,16 @@ import classes from "../../modules/DeviceItem.module.css"
 import star from "../../assets/star.png"
 import {useHistory} from "react-router-dom";
 import {DEVICE_ROUTE} from "../../utils/consts";
-import {addToBasket} from "../../http/basketAPI";
 import {Context} from "../../index";
 import addIcon from "../../assets/addToCart.png"
-import {ToastContainer, toast} from "react-toastify";
+import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import {addItem} from "../../helpers/basketHelper";
 
 const DeviceItem = ({device}) => {
     const history = useHistory()
     const brands = useContext(Context).device.brands
-    const addItem = () => {
-        addToBasket(device.id).then(() => toast.success("Успішно додано", {}))
-    }
+    const {id} = device
     return (
         <Col md={3} className="mt-3">
             <Card className={classes._card}>
@@ -41,19 +39,17 @@ const DeviceItem = ({device}) => {
                     <div onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>
                         {device.name}
                     </div>
-                    <div className='d-flex align-items-center'>
+                    <div className='d-flex align-items-center'
+                         onClick={() => addItem(id)}>
                         <Image className={classes._add_product}
-                               onClick={addItem}
                                src={addIcon}>
                         </Image>
                     </div>
                 </div>
             </Card>
-
             <ToastContainer/>
         </Col>
     );
 };
 
 export default DeviceItem;
-//Todo: animation of add

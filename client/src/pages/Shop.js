@@ -25,10 +25,10 @@ const Shop = observer(() => {
     const loadBrands = async () => device.setBrands(await fetchBrand())     //async
     const loadDevices = () => fetchDevice(device.selectedBrand.id, device.selectedType.id).then(data => device.setDevices(data.rows))
     useEffect(() => {
-        loadBrands()
-        loadTypes()
-        loadDevices()
-        loadUser()
+        loadBrands().then()
+        loadTypes().then()
+        loadDevices().then()
+        loadUser().then()
     }, [device.selectedBrand, device.selectedType])
     return (
         <div className="shop">

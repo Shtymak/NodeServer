@@ -5,21 +5,21 @@ import classes from "../modules/Basket.module.css";
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import {Container, Row} from "react-bootstrap";
+import {calculateDevicesPrice} from "../helpers/basketHelper";
 
 const Basket = observer(() => {
     const {basket} = useContext(Context)
+    const [totalPrice, setTotalPrice] = useState(0)
+    const [totalCount, setTotalCount] = useState(0)
     const loadBasket = () => fetchBasket().then(data => {
         basket.setBasketDevices(data.devices)
-        const startPrice = data.devices.reduce((total, device) =>
-            total + device.price, 0)
+        const startPrice = calculateDevicesPrice(data)
         setTotalPrice(startPrice)
         setTotalCount(basket.basketDevices.length)
     })
-    const [totalPrice, setTotalPrice] = useState(0)
-    const [totalCount, setTotalCount] = useState(0)
+
     useEffect(loadBasket, [])
     return (
-
         <Container className={classes.box}>
             <div className={classes.blur}>
             </div>
@@ -35,15 +35,15 @@ const Basket = observer(() => {
                 <hr/>
                 <div className={classes.content}>
                     <div>
-                        <BasketList basket={basket} totalPrice={totalPrice} setTotalPrice={setTotalPrice}/>
+                        <BasketList basket={basket}
+                                    totalPrice={totalPrice}
+                                    setTotalPrice={setTotalPrice}/>
                     </div>
                 </div>
-
-
+                Загальна сума покупки: {totalPrice}
                 {/*<Col md={4}>*/}
                 {/*    <Card className={classes.info}>*/}
                 {/*        <div className={classes.price}>*/}
-                {/*            Загальна сума покупки: {totalPrice}*/}
                 {/*        </div>*/}
                 {/*        <div className={classes.price}>*/}
                 {/*            Кількість одиниць: {totalCount}*/}

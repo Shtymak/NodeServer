@@ -10,7 +10,9 @@ const DeviceList = observer(() => {
     return (
         <Row className="d-flex">
             {device.devices.filter(device => device.userId !== user.getId()).map(device =>
-                <DeviceItem key={device.id} device={device}/>
+                <DeviceItem key={device.id}
+                            device={device}
+                />
             )}
         </Row>
     );
