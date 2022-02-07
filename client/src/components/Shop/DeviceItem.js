@@ -18,31 +18,38 @@ const DeviceItem = ({device}) => {
     }
     return (
         <Col md={3} className="mt-3">
-            <Card className={classes._card} onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>
-                <Image
-                    src={process.env.REACT_APP_API_URL + device.img}
-                    className={classes._image}
-                />
-                <div className="mt-1 d-flex justify-content-between align-items-center">
-                    <div className="text-black-50 ">
-                        {brands.filter(x =>
-                            x.id === device.brandId).map(x =>
-                            <div key={x.id}>{x.name}</div>)
-                        }
-                    </div>
-                    <div className='d-flex align-items-center'>
-                        <div>{device.rating}</div>
-                        <Image src={star} className={classes.icon}/>
+            <Card className={classes._card}>
+                <div onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>
+                    <Image
+                        src={process.env.REACT_APP_API_URL + device.img}
+                        className={classes._image}
+                    />
+                    <div className="mt-1 d-flex justify-content-between align-items-center">
+                        <div className="text-black-50 ">
+                            {brands.filter(x =>
+                                x.id === device.brandId).map(x =>
+                                <div key={x.id}>{x.name}</div>)
+                            }
+                        </div>
+                        <div className='d-flex align-items-center'>
+                            <div>{device.rating}</div>
+                            <Image src={star} className={classes.icon}/>
+                        </div>
                     </div>
                 </div>
-                <div>{device.name}</div>
+                <div className="mt-1 d-flex justify-content-between align-items-center">
+                    <div onClick={() => history.push(`${DEVICE_ROUTE}/${device.id}`)}>
+                        {device.name}
+                    </div>
+                    <div className='d-flex align-items-center'>
+                        <Image className={classes._add_product}
+                               onClick={addItem}
+                               src={addIcon}>
+                        </Image>
+                    </div>
+                </div>
             </Card>
-            <div>
-                <Image className={classes._add_product}
-                       onClick={addItem}
-                       src={addIcon}>
-                </Image>
-            </div>
+
             <ToastContainer/>
         </Col>
     );

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-
+import "../modules/Range.css"
 const StepRange = ({steps, setRating, rating}) => {
     const [state, setState] = useState()
 
@@ -25,7 +25,7 @@ const StepRange = ({steps, setRating, rating}) => {
                 value={state || 1}
                 onChange={handleChange}
             />
-            <p>{state || 1}</p>
+            <div >Поточна оцінка: {state || 1}</div>
         </div>
     );
 };

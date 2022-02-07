@@ -2,4 +2,5 @@
  cursor: pointer;
  max-width: 10vw;
  margin: 3px;
+ box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
 }
