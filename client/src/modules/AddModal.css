@@ -1,0 +1,83 @@
+.drop {
+    margin: 10px;
+}
+
+.selectors {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.selectors-header {
+    margin-top: 10px;
+    padding: 2px;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+}
+
+.selectors-header span {
+    font-family: "Comic Sans MS", serif;
+    font-size: 25px;
+}
+
+.forms-header {
+    margin-top: 10px;
+    padding: 4px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    text-align: center;
+    justify-content: center;
+}
+
+.forms-header span {
+    font-family: "Comic Sans MS", serif;
+    font-size: 25px;
+}
+
+.forms {
+    font-family: "Comic Sans MS", serif;
+}
+
+.props-header {
+    margin-top: 10px;
+    padding: 4px;
+    box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
+.props-header span {
+    font-family: "Comic Sans MS", serif;
+    font-size: 25px;
+}
+
+.props {
+    justify-content: center;
+    align-items: center;
+}
+
+.icon {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+}
+
+.add-title {
+    box-shadow: rgba(0, 0, 0, 0.34) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    padding: 3px;
+    cursor: pointer;
+    font-family: "Comic Sans MS", serif;
+    max-width: 80%;
+    position: center;
+    margin-top: 4px;
+}
+
+.details {
+    flex-direction: column;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

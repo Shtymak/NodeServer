@@ -9,7 +9,7 @@ import login from "../assets/login.png"
 import UserDeviceList from "./Profile/UserDeviceList";
 import {loadUserDevices, loadUser, logOut} from "../helpers/userHelper";
 import {handleCloseDevices, handleShowDevices, handleShowAddDevice, handleCloseAddDevice} from "../helpers/modalHelper";
-import AddProductModal from "./Profile/AddProductModal";
+import AddDeviceModal from "./Profile/AddDeviceModal";
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
@@ -84,9 +84,9 @@ const NavBar = observer(() => {
                             handleClose={handleCloseDevices}
                             setShowDevices={setShowDevices}
             />
-            <AddProductModal show={showAddDevice}
-                             handleClose={handleCloseAddDevice}
-                             hide={setShowAddDevice}
+            <AddDeviceModal show={showAddDevice}
+                            handleClose={handleCloseAddDevice}
+                            hide={setShowAddDevice}
             />
         </div>
     );
