@@ -10,6 +10,7 @@ import {addToBasket} from "../http/basketAPI";
 import StepRange from "../components/StepRange";
 import {addRating, loadStars} from "../helpers/ratingHelper";
 import {addItem} from "../helpers/basketHelper";
+import ReactImageZoom from 'react-image-zoom';
 
 
 const DevicePage = observer(() => {
@@ -20,6 +21,13 @@ const DevicePage = observer(() => {
     const loadRating = () => fetchRating(id).then(data => {
         setRating(data.rows / data.count)
     })
+    const zoomProps = {
+        width: 300,
+        zoomPosition: "right",
+        height: 300,
+        zoomWidth: 300,
+        img: process.env.REACT_APP_API_URL + device.img
+    }
     const stars = loadStars(device)
 
     useEffect(() => {
@@ -32,9 +40,9 @@ const DevicePage = observer(() => {
             <Container className="box">
                 <Row>
                     <Col md={4}>
-                        <Image className="image"
-                               src={process.env.REACT_APP_API_URL + device.img}
-                        />
+                        <div className="image">
+                            <ReactImageZoom {...zoomProps}/>
+                        </div>
                     </Col>
                     <Col md={4}>
                         <div className="attr">
