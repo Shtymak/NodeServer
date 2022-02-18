@@ -32,3 +32,13 @@ export const fetchUserDevices = async () => {
     return data
 }
 
+export const getAllUsers = async () => {
+    const {data} = await $authHost.get('api/user/users')
+    return data
+}
+
+export const deleteUser = async (id) => {
+    await $authHost.delete('api/user/delete', {data: {id: id}})
+}
+
+

@@ -2,6 +2,7 @@ const ApiError = require('../error/ApiError')
 const bcrypt = require('bcrypt')
 const {User, Basket, Device} = require('../models/models')
 const jwt = require('jsonwebtoken')
+const UserDto = require("../UserDto/UserDto");
 
 const generateJwt = (id, email, role) => {
     return jwt.sign({id, email, role},
@@ -52,14 +53,15 @@ class UserController {
     }
 
     async getAllUsers(req, res, next) {
-        const users = await User.findAndCountAll({where: {role: "USER"}})
-        res.json(users)
+        const {rows, count} = await User.findAndCountAll({where: {role: "USER"}})
+        const users = [...rows.map(user => new UserDto(user))]
+        res.json({users, count})
     }
 
     async destroy(req, res, next) {
         const {id} = req.body
         const userData = await User.destroy({where: {id}})
-        if(!userData){
+        if (!userData) {
             return next(ApiError.BadRequest("Невдалося видалити користувача!"))
         }
         res.json(userData)

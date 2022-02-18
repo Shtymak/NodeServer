@@ -1,12 +1,24 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {observer} from "mobx-react-lite";
 import {Context} from "../index";
 import "../modules/Admin.css"
 import {Col, Container, Row} from "react-bootstrap";
-import Button from "../components/Button"
+import Button from "../components/Admin/Button"
+
+import UserList from "../components/Admin/UserList";
+import {getAllUsers} from "../http/userAPI";
 
 const Admin = observer(() => {
-    const {device} = useContext(Context)
+    const {user} = useContext(Context)
+
+    function loadUsers() {
+        getAllUsers().then(data => {
+            user.setUsers(data.users)
+        })
+    }
+
+    useEffect(loadUsers, [])
+
     return (
         <div>
             <Container className="parent">
@@ -39,26 +51,7 @@ const Admin = observer(() => {
                                 <span>Користувачі</span>
                                 <hr/>
                                 <div className="items">
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
-                                    <h2> Користувач</h2>
+                                    <UserList user={user}/>
                                 </div>
                             </Col>
                             <Col md={7} className="device-tools">

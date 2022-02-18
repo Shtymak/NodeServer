@@ -1,5 +1,5 @@
 import {SHOP_ROUTE} from "../utils/consts";
-import {check, fetchUserDevices, login, registration} from "../http/userAPI";
+import {check, fetchUserDevices, getAllUsers, login, registration} from "../http/userAPI";
 import {toast} from "react-toastify";
 import {toastProps} from "../utils/style";
 
@@ -47,5 +47,16 @@ export async function enter(props) {
     } catch (error) {
         const message = error.response.data.message
         alert(message)
+    }
+}
+
+export async function deleteUser(props) {
+    const {user, destroyUser} = props
+    let deleted = window.confirm("Дійсно хочете видалити користувача?")
+    if (deleted) {
+        await destroyUser(user)
+        toast.error(`${user.email} видалено 🧹`, toastProps);
+    } else {
+        toast.success("Користувача помилувано 🥰", toastProps)
     }
 }

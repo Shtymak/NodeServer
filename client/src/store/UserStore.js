@@ -6,12 +6,21 @@ export default class UserStore {
         this._isAdmin = false
         this._data = {}
         this._devices = []
+        this._users = []
         makeAutoObservable(this)
     }
 
+
+    get users() {
+        return this._users;
+    }
+
+    setUsers(value) {
+        this._users = value;
+    }
+
     setIsAdmin(value) {
-        const query = value.role === "ADMIN"
-        this._isAdmin = query
+        this._isAdmin = value.role === "ADMIN"
     }
 
     get isAdmin() {
