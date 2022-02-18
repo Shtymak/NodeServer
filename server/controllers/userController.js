@@ -44,10 +44,25 @@ class UserController {
         const token = generateJwt(req.user.id, req.user.email, req.user.role)
         return res.json({token})
     }
-    async getDevices(req, res, next){
+
+    async getDevices(req, res, next) {
         const {id} = req.user
         const devices = await Device.findAndCountAll({where: {userId: id}})
         return res.json(devices)
+    }
+
+    async getAllUsers(req, res, next) {
+        const users = await User.findAndCountAll({where: {role: "USER"}})
+        res.json(users)
+    }
+
+    async destroy(req, res, next) {
+        const {id} = req.body
+        const userData = await User.destroy({where: {id}})
+        if(!userData){
+            return next(ApiError.BadRequest("Невдалося видалити користувача!"))
+        }
+        res.json(userData)
     }
 }
 
