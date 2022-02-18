@@ -22,8 +22,8 @@ const DevicePage = observer(() => {
         setRating(data.rows / data.count)
     })
     const zoomProps = {
-        // width: 300,
-        // height: 300,
+        width: 300,
+        height: 300,
         zoomPosition: "right",
         zoomWidth: 300,
         img: process.env.REACT_APP_API_URL + device.img

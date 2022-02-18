@@ -3,9 +3,19 @@ import {makeAutoObservable} from "mobx";
 export default class UserStore {
     constructor() {
         this._isAuth = false
+        this._isAdmin = false
         this._data = {}
         this._devices = []
         makeAutoObservable(this)
+    }
+
+    setIsAdmin(value) {
+        const query = value.role === "ADMIN"
+        this._isAdmin = query
+    }
+
+    get isAdmin() {
+        return this._isAdmin
     }
 
     setIsAuth(value) {
@@ -25,16 +35,19 @@ export default class UserStore {
         return this._data;
     }
 
-    getId(){
+    getId() {
         return this._data.id
     }
-    getUserData(){
+
+    getUserData() {
         return this._data
     }
-    setDevices(value){
+
+    setDevices(value) {
         this._devices = value
     }
-    get devices(){
+
+    get devices() {
         return this._devices
     }
 }

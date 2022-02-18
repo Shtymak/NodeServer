@@ -14,11 +14,12 @@ const App = observer(() => {
         check().then(data => {
             user.setUser(true)
             user.setIsAuth(true)
+            user.setIsAdmin(data)
         }).finally(() => setLoading(false))
     }
     useEffect(callback, [])
 
-    if(loading)
+    if (loading)
         return <Spinner animation={"grow"}/>
     return (
         <BrowserRouter>

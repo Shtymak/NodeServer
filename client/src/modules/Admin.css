@@ -1,0 +1,49 @@
+.parent{
+    margin-top: 80px;
+}
+
+.tools{
+    margin: 10px;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 8px;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+}
+.tools span{
+    font-size: 20px;
+}
+
+.types{
+    margin: 5px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.brands{
+    margin: 5px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.items{
+    margin: 5px;
+    overflow: auto;
+    height: 50vh;
+}
+
+.user-tools{
+    margin: 5px;
+    padding: 2px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.rows{
+    display: flex;
+    flex-direction: row;
+}
+
+.device-tools{
+    margin: 5px;
+    padding: 2px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
