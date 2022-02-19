@@ -4,6 +4,7 @@ import App from "../src/App"
 import UserStore from "./store/UserStore";
 import DeviceStore from "./store/DeviceStore";
 import BasketStore from "./store/BasketStore";
+import {ToastContainer} from "react-toastify";
 
 export const Context = createContext(null)
 
@@ -15,7 +16,9 @@ ReactDOM.render(
         basket: new BasketStore()
     }}>
         <App/>
+        <ToastContainer/>
     </Context.Provider>,
+
     document.getElementById('root')
 );
 

@@ -19,12 +19,12 @@ export const loadUserDevices = (user) =>
 
 export async function deleteItem(props) {
     const {device, removeItem} = props
-    let deleted = window.confirm("Дійсно хочете видалити?")
+    const deleted = window.confirm("Дійсно хочете видалити?")
     if (deleted) {
         await removeItem(device)
         toast.error(`${device.name} видалено`, toastProps);
     } else {
-        toast.success("Ваш товар у безпеці 💖", toastProps)
+        toast.warning("Ваш товар у безпеці 💖", toastProps)
     }
 }
 

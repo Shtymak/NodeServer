@@ -1,22 +1,25 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Row} from "react-bootstrap";
-import {Context} from "../../index";
-import UserDeviceItem from "./UserDeviceItem";
-import {removeDevice} from "../../http/deviceApi";
-import {observer} from "mobx-react-lite";
+import UserDeviceItem from "../Profile/UserDeviceItem";
 import {noContent} from "../../utils/style";
+import {Context} from "../../index";
+import {fetchDevice, removeDevice} from "../../http/deviceApi";
+import "../../modules/Admin.css"
 
-const UserDeviceList = observer(({show, handleClose, setShowDevices}) => {
+const AdminDeviceList = () => {
     const {user} = useContext(Context)
     const removeItem = async (device) => {
         user.setDevices(user.devices.filter(x => x.id !== device.id))
         await removeDevice(device)
+
     }
+    const [devices, setDevices] = useState([])
+    useEffect(() => fetchDevice().then(data => setDevices(data.rows)), [])
     return (
-        <div>
-            {user.devices.length > 0 ?
+        <div className="user-list">
+            {devices.length > 0 ?
                 <Row className="d-flex">
-                    {user.devices.map(device =>
+                    {devices.map(device =>
                         <UserDeviceItem key={device.id}
                                         device={device}
                                         removeItem={removeItem}/>)}
@@ -27,7 +30,8 @@ const UserDeviceList = observer(({show, handleClose, setShowDevices}) => {
                 </div>
             }
         </div>
-    );
-});
 
-export default UserDeviceList;
+    );
+};
+
+export default AdminDeviceList;

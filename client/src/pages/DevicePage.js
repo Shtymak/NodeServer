@@ -1,12 +1,10 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import 'react-toastify/dist/ReactToastify.css';
-import {Button, Card, Col, Container, FormSelect, Image, Row} from "react-bootstrap";
+import {Button, Card, Col, Container, Row} from "react-bootstrap";
 import "../modules/DevicePage.css"
-import {createRating, fetchOneDevice, fetchRating, fetchType} from "../http/deviceApi";
+import { fetchOneDevice, fetchRating} from "../http/deviceApi";
 import {useParams} from "react-router-dom";
 import {observer} from "mobx-react-lite";
-import {ToastContainer, toast} from "react-toastify";
-import {addToBasket} from "../http/basketAPI";
 import StepRange from "../components/StepRange";
 import {addRating, loadStars} from "../helpers/ratingHelper";
 import {addItem} from "../helpers/basketHelper";
@@ -108,7 +106,6 @@ const DevicePage = observer(() => {
                         </div>
                     </Col>
                 </Row>
-                <ToastContainer/>
             </Container>
         </div>
     );

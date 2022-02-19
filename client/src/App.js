@@ -10,14 +10,13 @@ import {Spinner} from "react-bootstrap";
 const App = observer(() => {
     const {user} = useContext(Context)
     const [loading, setLoading] = useState(true)
-    const callback = () => {
+    useEffect(() => {
         check().then(data => {
             user.setUser(true)
             user.setIsAuth(true)
             user.setIsAdmin(data)
         }).finally(() => setLoading(false))
-    }
-    useEffect(callback, [])
+    }, [])
 
     if (loading)
         return <Spinner animation={"grow"}/>

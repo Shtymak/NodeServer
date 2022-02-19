@@ -7,18 +7,23 @@ import Button from "../components/Admin/Button"
 
 import UserList from "../components/Admin/UserList";
 import {getAllUsers} from "../http/userAPI";
+import UserDeviceList from "../components/Profile/UserDeviceList";
+import AdminDeviceList from "../components/Admin/AdminDeviceList";
+import {fetchDevice} from "../http/deviceApi";
 
 const Admin = observer(() => {
     const {user} = useContext(Context)
-
+    const [deviceCount, setDeviceCount] = useState(0)
+    const [userCount, setUserCount] = useState(0)
     function loadUsers() {
         getAllUsers().then(data => {
             user.setUsers(data.users)
+            setUserCount(data.count)
         })
     }
 
     useEffect(loadUsers, [])
-
+    useEffect(() => fetchDevice().then(data => setDeviceCount(data.count)), [])
     return (
         <div>
             <Container className="parent">
@@ -48,27 +53,17 @@ const Admin = observer(() => {
                         </span>
                         <div className="rows">
                             <Col md={4} className="user-tools">
-                                <span>Користувачі</span>
+                                <span>Користувачі({userCount})</span>
                                 <hr/>
                                 <div className="items">
                                     <UserList user={user}/>
                                 </div>
                             </Col>
                             <Col md={7} className="device-tools">
-                                <span>Девайси</span>
+                                <span>Девайси({deviceCount})</span>
                                 <hr/>
                                 <div className="items">
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
-                                    <h2>Девайс</h2>
+                                    <AdminDeviceList/>
                                 </div>
                             </Col>
                         </div>

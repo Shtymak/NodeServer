@@ -4,7 +4,6 @@ import classes from "../../modules/UserDeviceItem.module.css"
 import {DEVICE_ROUTE} from "../../utils/consts";
 import {NavLink} from "react-router-dom";
 import remove from "../../assets/remove.png"
-import {ToastContainer, toast} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {observer} from "mobx-react-lite";
 import {deleteItem} from "../../helpers/userHelper";
@@ -27,7 +26,6 @@ const UserDeviceItem = observer(({device, removeItem}) => {
                                deleteItem({device, removeItem})}/>
                 </div>
             </Card>
-            <ToastContainer/>
         </Col>
     );
 });

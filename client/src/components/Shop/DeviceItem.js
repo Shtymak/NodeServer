@@ -6,7 +6,6 @@ import {useHistory} from "react-router-dom";
 import {DEVICE_ROUTE} from "../../utils/consts";
 import {Context} from "../../index";
 import addIcon from "../../assets/addToCart.png"
-import {ToastContainer} from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import {addItem} from "../../helpers/basketHelper";
 
@@ -47,7 +46,6 @@ const DeviceItem = ({device}) => {
                     </div>
                 </div>
             </Card>
-            <ToastContainer/>
         </Col>
     );
 };

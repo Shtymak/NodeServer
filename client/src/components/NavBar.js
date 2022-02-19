@@ -6,10 +6,10 @@ import {observer} from "mobx-react-lite";
 import {Link, useHistory} from "react-router-dom";
 import logout from "../assets/logout.png"
 import login from "../assets/login.png"
-import UserDeviceList from "./Profile/UserDeviceList";
 import {loadUserDevices, loadUser, logOut} from "../helpers/userHelper";
 import {handleCloseDevices, handleShowDevices, handleShowAddDevice, handleCloseAddDevice} from "../helpers/modalHelper";
 import AddDeviceModal from "./Profile/AddDeviceModal";
+import DeviceModal from "./Profile/DeviceModal";
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
@@ -80,9 +80,9 @@ const NavBar = observer(() => {
                     </button>)
                 }
             < /div>
-            <UserDeviceList show={showDevices}
-                            handleClose={handleCloseDevices}
-                            setShowDevices={setShowDevices}
+            <DeviceModal show={showDevices}
+                         handleClose={handleCloseDevices}
+                         setShowDevices={setShowDevices}
             />
             <AddDeviceModal show={showAddDevice}
                             handleClose={handleCloseAddDevice}
