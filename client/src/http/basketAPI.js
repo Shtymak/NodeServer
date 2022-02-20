@@ -15,3 +15,7 @@ export const fetchBasket = async () => {
 export const deleteFromBasket = async (deviceId) => {
     await $authHost.delete(basketPath, {data: deviceId})
 }
+
+export async function fetchOrder(data) {
+    await $authHost.post(`${basketPath}/order`, data)
+}

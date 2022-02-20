@@ -6,7 +6,7 @@ import {removeDevice} from "../../http/deviceApi";
 import {observer} from "mobx-react-lite";
 import {noContent} from "../../utils/style";
 
-const UserDeviceList = observer(({show, handleClose, setShowDevices}) => {
+const UserDeviceList = observer(() => {
     const {user} = useContext(Context)
     const removeItem = async (device) => {
         user.setDevices(user.devices.filter(x => x.id !== device.id))

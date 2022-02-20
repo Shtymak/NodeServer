@@ -1,6 +1,6 @@
 const {Basket, BasketDevice, Device} = require("../models/models");
 const ApiError = require('../error/ApiError')
-
+const mailService = require('../services/MailService')
 
 class BasketController {
 
@@ -37,6 +37,23 @@ class BasketController {
         if (!device)
             return next(ApiError.BadRequest("Помилка. Неможливо видалити!"))
         res.json({message: "Продукт успішно видлалено!"})
+    }
+
+    async order(req, res, next) {
+        const {
+            totalPrice,
+            totalCount,
+            devices
+        } = req.body
+        const {user} = req
+        try {
+            await mailService.sendMail(user.email, {totalPrice, totalCount, devices})
+            const {id} = await Basket.findOne({where: {userId: user.id}});
+            await BasketDevice.destroy({where: {basketId: id}})
+            res.json({message: "Успішно доставлено!"})
+        } catch (e) {
+            next(ApiError.Internal("Неможливо достиавити повідомлення"))
+        }
     }
 }
 
