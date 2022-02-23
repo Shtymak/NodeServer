@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {Row} from "react-bootstrap";
+import {Row, Card} from "react-bootstrap";
 import UserDeviceItem from "../Profile/UserDeviceItem";
 import {noContent} from "../../utils/style";
 import {Context} from "../../index";
