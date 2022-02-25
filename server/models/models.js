@@ -9,6 +9,14 @@ const User = sequelize.define('user', {
     role: {type: DataTypes.STRING, defaultValue: "USER"}
 })
 
+const Order = sequelize.define('order', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+})
+
+const OrderDevice = sequelize.define('basket_device', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+})
+
 const Basket = sequelize.define('basket', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
 })
