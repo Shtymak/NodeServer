@@ -56,6 +56,12 @@ const TypeBrand = sequelize.define('type_brand', {
     id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true}
 })
 
+User.hasOne(Order)
+Order.belongsTo(User)
+
+Order.hasMany(OrderDevice)
+OrderDevice.belongsTo(Order)
+
 User.hasOne(Basket)
 Basket.belongsTo(User)
 
@@ -95,7 +101,8 @@ module.exports = {
     Brand,
     Rating,
     TypeBrand,
-    DeviceInfo
+    DeviceInfo,
+    Order
 }
 
 

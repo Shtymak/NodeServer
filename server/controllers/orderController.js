@@ -1,4 +1,4 @@
-import {Order} from
+import {Order} from "../models/models"
 
 class OrderController {
     async create(req, res, next) {
@@ -14,7 +14,8 @@ class OrderController {
     }
 
     async getAll(req, res, next) {
-        const {rows, count} = await Order.findAndCountAll()
+        const {userId} = req.body
+        const {rows, count} = await Order.findAndCountAll({where: {userId}})
         res.json({rows, count})
     }
 }
