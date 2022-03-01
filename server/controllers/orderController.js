@@ -1,3 +1,5 @@
+import {Order} from
+
 class OrderController {
     async create(req, res, next) {
 
@@ -12,7 +14,8 @@ class OrderController {
     }
 
     async getAll(req, res, next) {
-        
+        const {rows, count} = await Order.findAndCountAll()
+        res.json({rows, count})
     }
 }
 
