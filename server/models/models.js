@@ -102,7 +102,8 @@ module.exports = {
     Rating,
     TypeBrand,
     DeviceInfo,
-    Order
+    Order,
+    OrderDevice
 }
 
 
