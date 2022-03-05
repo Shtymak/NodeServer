@@ -1,4 +1,4 @@
-const {Order, OrderDevice, OrderConversation, Device} = require('../models/models')
+const {Order, OrderConversation, Device} = require('../models/models')
 const ApiError = require("../error/ApiError")
 
 class OrderController {
@@ -21,25 +21,64 @@ class OrderController {
     }
 
     async destroy(req, res, next) {
-
+        try {
+            const {id} = await Order.findOne({
+                where: {
+                    userId: req.user.id
+                }
+            });
+            if (!id) {
+                return next(ApiError.BadRequest("Замовлень немає"))
+            }
+            const order = await OrderConversation.destroy(
+                {
+                    where: {
+                        orderId: id
+                    }
+                });
+            if (!order) {
+                return next(ApiError.BadRequest("Неможливо видалити!"))
+            }
+            res.json({message: "Замовлення скасовано"})
+        } catch (e) {
+            next(ApiError.BadRequest(e.message))
+        }
     }
 
     async getAll(req, res, next) {
         try {
-            const {id} = await Order.findOne({where: {userId: req.user.id}})
-            if (!id)
+            const {id} = await Order.findOne({
+                where: {
+                    userId: req.user.id
+                }
+            });
+            if (!id) {
                 return next(ApiError.BadRequest("Замовлень немає"))
-            const orderDevices = await OrderConversation.findAll({where: {orderId: id}})
+            }
+            const orderDevices = await OrderConversation.findAll(
+                {
+                    where:
+                        {
+                            orderId: id
+                        }
+                });
             const devices = await Device.findAll({
                 where: {
                     id: orderDevices.map(device => device.deviceId)
                 }
-            })
+            });
             const order = devices.map(device =>
-                new orderDto(device, orderDevices.find(x => x.deviceId === device.id).shopperId))
-            if (!devices)
+                new orderDto(device, orderDevices
+                    .find(orderDevice =>
+                        orderDevice.deviceId === device.id)
+                    .shopperId));
+            if (!devices) {
                 return next(ApiError.BadRequest("Замовлень немає"))
-            return res.json({count: order.length, devices: order})
+            }
+            return res.json({
+                count: order.length,
+                devices: order
+            });
         } catch (e) {
             next(ApiError.BadRequest(e.message))
         }
