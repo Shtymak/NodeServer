@@ -1,13 +1,19 @@
 const ApiError = require('../error/ApiError')
-const { Rating} = require('../models/models')
+const {Rating} = require('../models/models')
 
 class RatingController {
     async create(req, res, next) {
         const {deviceId, rate} = req.body
         const userId = req.user.id
-        const candidate = await Rating.findOne({where: {userId, deviceId}})
-        if (candidate)
+        const candidate = await Rating.findOne({
+            where: {
+                userId,
+                deviceId
+            }
+        })
+        if (candidate) {
             return next(ApiError.Forbidden("Цей продукт вже оцінено!"))
+        }
         const rating = await Rating.create({deviceId: deviceId, userId: userId, rate: rate})
         res.json({rating})
     }

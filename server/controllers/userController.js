@@ -22,8 +22,8 @@ class UserController {
         }
         const hashPassword = await bcrypt.hash(password, 10)
         const user = await User.create({email, role, password: hashPassword})
-        const basket = await Basket.create({userId: user.id})
-        const order = await Order.create({userId: user.id})
+        await Basket.create({userId: user.id})
+        await Order.create({userId: user.id})
         const token = generateJwt(user.id, user.email, user.role)
         return res.json({token})
     }
@@ -49,7 +49,11 @@ class UserController {
 
     async getDevices(req, res, next) {
         const {id} = req.user
-        const devices = await Device.findAndCountAll({where: {userId: id}})
+        const devices = await Device.findAndCountAll({
+            where: {
+                userId: id
+            }
+        })
         return res.json(devices)
     }
 

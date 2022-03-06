@@ -10,7 +10,9 @@ class BrandController {
 
     async update(req, res, next) {
         const {id, object} = req.body
-        const brand =  await Brand.findOne({where: {id}})
+        const brand =  await Brand.findOne({
+            where: {id}
+        });
         if (!brand) {
             return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
         }
@@ -30,7 +32,9 @@ class BrandController {
 
     async destroy(req, res, next) {
         const {id} = req.body
-        const brand =  await Brand.findOne({where: {id}})
+        const brand =  await Brand.findOne({
+            where: {id}
+        })
         if (!brand) {
             return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
         }

@@ -12,9 +12,16 @@ class DeviceController {
             const {id} = req.user
             const {img} = req.files
             const fileName = uuid.v4() + fileType
-            img.mv(path.resolve(__dirname, '..', 'static', fileName)).then(r => console.log(r))
-            const device = await Device.create({name, price, brandId, typeId, img: fileName, userId: id})
-
+            img.mv(path.resolve(__dirname, '..', 'static', fileName))
+                .then(r => console.log(r))
+            const device = await Device.create({
+                name,
+                price,
+                brandId,
+                typeId,
+                img: fileName,
+                userId: id
+            })
             if (info) {
                 info = JSON.parse(info)
                 info.forEach(params =>
@@ -24,7 +31,6 @@ class DeviceController {
                         deviceId: device.id
                     }))
             }
-
             return res.json(device)
         } catch (e) {
             next(ApiError.BadRequest(e.message))
@@ -32,7 +38,12 @@ class DeviceController {
     }
 
     async getAll(req, res) {
-        let {brandId, typeId, limit, page} = req.query
+        let {
+            brandId,
+            typeId,
+            limit,
+            page
+        } = req.query
         page = page || 1
         limit = limit || 30
         let offset = page * limit - limit
@@ -56,14 +67,23 @@ class DeviceController {
         const {id} = req.params
         const device = await Device.findOne({
             where: {id},
-            include: [{model: DeviceInfo, as: 'info'}]
+            include: [
+                {
+                    model: DeviceInfo, as: 'info'
+                }
+            ]
         })
-        const {count, rows} = await Rating.findAndCountAll({where: {deviceId: id}})
+        const {count, rows} = await Rating.findAndCountAll({
+            where: {
+                deviceId: id
+            }
+        })
         const rating = Math.ceil(rows.reduce((total, row) => {
             return total + row.rate
         }, 0) / count || 0)
-        if (rating !== device.rating)
+        if (rating !== device.rating) {
             await device.update({rating: rating})
+        }
         return res.json(device)
     }
 
@@ -74,9 +94,12 @@ class DeviceController {
         const {img} = req.files
         const userId = object.userId
         const updaterId = req.user.id
-        if (updaterId !== userId)
+        if (updaterId !== userId) {
             return next(ApiError.Forbidden("Неможливо змінити чужий предмет!"))
-        const candidate = await Device.findOne({where: {id}})
+        }
+        const candidate = await Device.findOne({
+            where: {id}
+        })
         if (!candidate) {
             return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
         }
@@ -119,8 +142,9 @@ class DeviceController {
     async destroy(req, res, next) {
         const {id, userId} = req.body
         const deleterId = req.user.id
-        if (deleterId !== userId)
+        if (deleterId !== userId) {
             return next(ApiError.Forbidden("Неможливо видалити чужий предмет!"))
+        }
         const candidate = await Device.findOne({where: {id}})
         if (!candidate) {
             return next(ApiError.Internal("Неможливо оновити неіснуючий бренд!"))
