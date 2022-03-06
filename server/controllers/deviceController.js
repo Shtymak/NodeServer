@@ -5,6 +5,26 @@ const fileType = '.jpg'
 const path = require('path')
 const fs = require('fs')
 
+const updateMask = (object, fileName) => {
+    return {
+        name: object.name,
+        price: object.price,
+        typeId: object.typeId,
+        brandId: object.brandId,
+        img: fileName
+    }
+}
+
+const removeFileAsync = async (path) => {
+    return new Promise((resolve, reject) =>
+        fs.rm(path, (err) => {
+            if (err)
+                return reject(err.message)
+            resolve()
+        })
+    )
+}
+
 class DeviceController {
     async create(req, res, next) {
         try {
@@ -108,30 +128,12 @@ class DeviceController {
             await img.mv(path.resolve(__dirname, '..', 'static', fileName))
             const oldImageName = object.img
             try {
-                const removeFileAsync = async (path) => {
-                    return new Promise((resolve, reject) =>
-                        fs.rm(path, (err) => {
-                            if (err)
-                                return reject(err.message)
-                            resolve()
-                        })
-                    )
-                }
                 removeFileAsync(path.resolve(__dirname, '..', 'static', oldImageName))
                     .then(() => console.log("Файл видалено"))
             } catch (error) {
                 return res.json({message: error.message})
             }
-            const updateMask = (object) => {
-                return {
-                    name: object.name,
-                    price: object.price,
-                    typeId: object.typeId,
-                    brandId: object.brandId,
-                    img: fileName
-                }
-            }
-            await candidate.update(updateMask(object))
+            await candidate.update(updateMask(object, fileName))
             await candidate.save()
             return res.json(candidate)
         } catch (error) {
