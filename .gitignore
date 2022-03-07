@@ -1,2 +1,5 @@
 # Project exclude paths
 /server/node_modules/
+/server/static
+/client/src/assets
+/client/.env
