@@ -7,15 +7,17 @@ import {Link, useHistory} from "react-router-dom";
 import logout from "../assets/logout.png"
 import login from "../assets/login.png"
 import {loadUserDevices, loadUser, logOut} from "../helpers/userHelper";
-import {handleCloseDevices, handleShowDevices, handleShowAddDevice, handleCloseAddDevice} from "../helpers/modalHelper";
+import {handleCloseDevices, handleShowDevices, handleShowAddDevice, handleCloseAddDevice, handleShowOrder, handleCloseOrder} from "../helpers/modalHelper";
 import AddDeviceModal from "./Profile/AddDeviceModal";
 import DeviceModal from "./Profile/DeviceModal";
+import OrderModal from './Profile/OrderModal';
 
 const NavBar = observer(() => {
     const {user} = useContext(Context)
     const history = useHistory()
     const [showDevices, setShowDevices] = useState(false);
     const [showAddDevice, setShowAddDevice] = useState(false)
+    const [showOrders, setShowOrders] = useState(false)
 
     useEffect(async () => {
         await loadUser(user)
@@ -51,6 +53,12 @@ const NavBar = observer(() => {
                                     Мої товари
                                 </Link>
                             </li>
+                            <li className="list-item">
+                                <Link onClick={() => handleShowOrder(setShowOrders)}
+                                      className="link-light">
+                                    Мої замовлення
+                                </Link>
+                            </li>
                         </ul>) : <div>
 
                     </div>
@@ -79,7 +87,7 @@ const NavBar = observer(() => {
                         />
                     </button>)
                 }
-            < /div>
+            </div>
             <DeviceModal show={showDevices}
                          handleClose={handleCloseDevices}
                          setShowDevices={setShowDevices}
@@ -88,6 +96,10 @@ const NavBar = observer(() => {
                             handleClose={handleCloseAddDevice}
                             hide={setShowAddDevice}
             />
+            <OrderModal show={showOrders}
+                         handleClose={handleCloseOrder}
+                         setShowDevices={setShowOrders}
+                         />
         </div>
     );
 });

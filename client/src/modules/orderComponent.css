@@ -1,0 +1,14 @@
+.order-box{
+    width: 90%;
+    height: fit-content;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    margin-left: 5px;
+    padding: 3px;
+    display: flex;
+}
+
+.img{
+    width: 20px;
+    height: 20px;
+    margin-right: 5px;
+}
