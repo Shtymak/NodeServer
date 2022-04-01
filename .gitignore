@@ -3,3 +3,4 @@
 /server/static
 /client/src/assets
 /client/.env
+/server/.env
